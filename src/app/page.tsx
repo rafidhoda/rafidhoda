@@ -5,18 +5,26 @@ export default function Home() {
     {
       title: "HodaScript",
       description: "Code simple mobile apps in 5 mins",
+      url: "https://hodascript.com",
+      external: true,
     },
     {
       title: "Roblox Creator Camp",
       description: "2-day camp to turn gamers into creators",
+      url: "https://robloxcreatorcamp.com",
+      external: true,
     },
     {
       title: "Mentorship",
       description: "My personal mentorship program",
+      url: "https://rafidhoda.com/mentorship",
+      external: false,
     },
     {
       title: "Hire Me",
       description: "Hire me for a project",
+      url: "https://rafidhoda.com/hire-me",
+      external: false,
     },
   ];
 
@@ -108,16 +116,19 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Offerings Section - Slightly reduced spacing */}
+        {/* Offerings Section - Now with clickable links */}
         <div className="w-full space-y-3 pt-2">
           {offerings.map((offering, index) => (
-            <div
+            <a
               key={index}
-              className="bg-gray-800 rounded-2xl p-5 hover:bg-gray-750 transition-colors cursor-pointer border border-gray-700"
+              href={offering.url}
+              target={offering.external ? "_blank" : "_self"}
+              rel={offering.external ? "noopener noreferrer" : undefined}
+              className="block bg-gray-800 rounded-2xl p-5 hover:bg-gray-750 transition-colors border border-gray-700 hover:border-gray-600"
             >
               <h3 className="text-xl font-semibold mb-1">{offering.title}</h3>
               <p className="text-gray-400 text-sm">{offering.description}</p>
-            </div>
+            </a>
           ))}
         </div>
       </div>
