@@ -84,8 +84,8 @@ export default function Home() {
 
         {/* Mission Statement - Reduced spacing */}
         <p className="text-gray-300 text-center leading-relaxed -mt-2">
-          I want to inspire people of all ages to become creators so we can build
-          a better world instead of scrolling all day.
+          If only tech bros shape the future, we’re in trouble. I help regular people
+          create apps, videos, games, and tools. You don’t need to be a genius. Just curious.
         </p>
 
         {/* Social Links - Reduced spacing */}
