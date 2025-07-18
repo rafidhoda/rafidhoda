@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rafid Hoda - Creator & Mentor",
+  title: "Rafid Hoda - Creator, Programmer & Teacher",
   description: "Inspiring people of all ages to become creators. HodaScript, Roblox Creator Camp, Mentorship & more.",
 };
 
