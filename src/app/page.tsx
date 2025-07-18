@@ -14,18 +14,6 @@ export default function Home() {
       url: "https://robloxcreatorcamp.com",
       external: true,
     },
-    {
-      title: "Mentorship",
-      description: "My personal mentorship program",
-      url: "https://rafidhoda.com/mentorship",
-      external: false,
-    },
-    {
-      title: "Hire Me",
-      description: "Hire me for a project",
-      url: "https://rafidhoda.com/hire-me",
-      external: false,
-    },
   ];
 
   const socialLinks = [
