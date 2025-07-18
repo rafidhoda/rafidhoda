@@ -70,30 +70,30 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white px-6 py-8">
-      <div className="max-w-sm mx-auto flex flex-col items-center space-y-8">
-        {/* Profile Photo */}
+      <div className="max-w-sm mx-auto flex flex-col items-center space-y-6">
+        {/* Profile Photo - Made smaller */}
         <div className="relative">
           <Image
             src="/rafid-hoda.png"
             alt="Rafid Hoda"
-            width={120}
-            height={120}
+            width={100}
+            height={100}
             className="rounded-full object-cover"
             priority
           />
         </div>
 
-        {/* Name */}
-        <h1 className="text-4xl font-bold text-center">Rafid Hoda</h1>
+        {/* Name - Reduced spacing */}
+        <h1 className="text-4xl font-bold text-center -mt-2">Rafid Hoda</h1>
 
-        {/* Mission Statement */}
-        <p className="text-gray-300 text-center leading-relaxed">
+        {/* Mission Statement - Reduced spacing */}
+        <p className="text-gray-300 text-center leading-relaxed -mt-2">
           I want to inspire people of all ages to become creators so we can build
           a better world instead of scrolling all day.
         </p>
 
-        {/* Social Links */}
-        <div className="flex space-x-4">
+        {/* Social Links - Reduced spacing */}
+        <div className="flex space-x-4 -mt-2">
           {socialLinks.map((social) => (
             <a
               key={social.name}
@@ -108,14 +108,14 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Offerings Section */}
-        <div className="w-full space-y-4">
+        {/* Offerings Section - Slightly reduced spacing */}
+        <div className="w-full space-y-3 pt-2">
           {offerings.map((offering, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-2xl p-6 hover:bg-gray-750 transition-colors cursor-pointer border border-gray-700"
+              className="bg-gray-800 rounded-2xl p-5 hover:bg-gray-750 transition-colors cursor-pointer border border-gray-700"
             >
-              <h3 className="text-xl font-semibold mb-2">{offering.title}</h3>
+              <h3 className="text-xl font-semibold mb-1">{offering.title}</h3>
               <p className="text-gray-400 text-sm">{offering.description}</p>
             </div>
           ))}
