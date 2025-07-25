@@ -31,7 +31,7 @@ export default function IndiaTripPage() {
           </div>
           <h1 className="text-4xl font-bold mb-4">India Trip 2025</h1>
           <p className="text-xl text-gray-300 mb-6">
-            I'm visiting India for 3 weeks after 10 years. While I'm there I'd love to connect with people and hold live events.
+            I&apos;m visiting India for 3 weeks after 10 years. While I&apos;m there I&apos;d love to connect with people and hold live events.
           </p>
           <div className="inline-flex items-center space-x-2 bg-blue-600 px-4 py-2 rounded-full text-sm font-medium">
             <span>🇮🇳</span>
@@ -41,7 +41,7 @@ export default function IndiaTripPage() {
 
         {/* Trip Itinerary */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-center">Where I'll Be</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center">Where I&apos;ll Be</h2>
           <div className="space-y-4">
             {tripDetails.map((stop, index) => (
               <div key={index} className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
@@ -57,7 +57,7 @@ export default function IndiaTripPage() {
 
         {/* What I'm Looking For */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold mb-6 text-center">Let's Connect!</h2>
+          <h2 className="text-2xl font-bold mb-6 text-center">Let&apos;s Connect!</h2>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-gray-800 rounded-2xl p-6 border border-gray-700">
               <h3 className="text-lg font-semibold mb-3 text-green-400">Speaking Opportunities</h3>
@@ -84,7 +84,7 @@ export default function IndiaTripPage() {
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Want to Meet Up?</h2>
           <p className="mb-6 text-blue-100">
-            Send me a message if you'd like to grab coffee, invite me to speak, or just chat about creating awesome things!
+            Send me a message if you&apos;d like to grab coffee, invite me to speak, or just chat about creating awesome things!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
