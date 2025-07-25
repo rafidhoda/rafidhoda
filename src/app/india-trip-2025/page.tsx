@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function IndiaTripPage() {
   const tripDetails = [
@@ -125,12 +126,12 @@ export default function IndiaTripPage() {
 
         {/* Back to Main Site */}
         <div className="text-center mt-8">
-          <a
+          <Link
             href="/"
             className="text-gray-400 hover:text-white transition-colors text-sm"
           >
             ← Back to rafidhoda.com
-          </a>
+          </Link>
         </div>
       </div>
     </div>
