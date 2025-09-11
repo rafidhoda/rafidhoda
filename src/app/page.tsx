@@ -3,15 +3,15 @@ import Image from "next/image";
 export default function Home() {
   const offerings = [
     {
-      title: "HodaScript",
-      description: "Code simple mobile apps in 5 mins",
-      url: "https://hodascript.com",
+      title: "Roblox Camp in Oslo",
+      description: "Norwegian 5 day camp during Oslo Høstferie",
+      url: "https://www.hoda.camp/roblox",
       external: true,
     },
     {
-      title: "Roblox Creator Camp",
-      description: "2-day camp to turn gamers into creators",
-      url: "https://robloxcreatorcamp.com",
+      title: "HodaScript",
+      description: "Code simple mobile apps in 5 mins",
+      url: "https://hodascript.com",
       external: true,
     },
   ];
