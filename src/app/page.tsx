@@ -3,12 +3,6 @@ import Image from "next/image";
 export default function Home() {
   const offerings = [
     {
-      title: "India Trip 2025",
-      description: "I'm visiting India Sep 23 - Oct 12. Let's connect!",
-      url: "/india-trip-2025",
-      external: false,
-    },
-    {
       title: "HodaScript",
       description: "Code simple mobile apps in 5 mins",
       url: "https://hodascript.com",
