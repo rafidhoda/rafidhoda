@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rafid Hoda - Creator, Programmer & Teacher",
-  description: "Inspiring people of all ages to become creators. HodaScript, Roblox Creator Camp, Mentorship & more.",
+  title: "Rafid Hoda - The Seller. The Builder. The Teacher. The Storyteller.",
+  description: "One person connecting customers, code, and clarity.",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <Script
           defer
