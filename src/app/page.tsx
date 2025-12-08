@@ -97,7 +97,7 @@ const fadeInUp = {
   visible: { 
     opacity: 1, 
     y: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] }
+    transition: { duration: 0.6, ease: "easeOut" }
   }
 };
 
@@ -486,6 +486,8 @@ export default function Home() {
                   { title: "Sales Engineer", bgColor: "bg-purple-100", textColor: "text-purple-700", borderColor: "border-purple-300", hoverBg: "hover:bg-purple-200" },
                   { title: "Full-Stack Engineer", bgColor: "bg-indigo-100", textColor: "text-indigo-700", borderColor: "border-indigo-300", hoverBg: "hover:bg-indigo-200" },
                   { title: "Video Producer", bgColor: "bg-pink-100", textColor: "text-pink-700", borderColor: "border-pink-300", hoverBg: "hover:bg-pink-200" },
+                  { title: "Teacher", bgColor: "bg-amber-100", textColor: "text-amber-700", borderColor: "border-amber-300", hoverBg: "hover:bg-amber-200" },
+                  { title: "Content Creator", bgColor: "bg-teal-100", textColor: "text-teal-700", borderColor: "border-teal-300", hoverBg: "hover:bg-teal-200" },
                 ].map((role, index) => (
                   <div
                     key={index}
