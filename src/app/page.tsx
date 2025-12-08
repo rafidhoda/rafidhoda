@@ -506,6 +506,115 @@ export default function Home() {
       {/* Teaching Impact Section */}
       <TeachingImpact />
 
+      {/* Content Creation Section */}
+      <section className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          {/* Header */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 tracking-tight">
+              Content Creation
+            </h2>
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-4">
+              I use video for storytelling.
+            </p>
+            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
+              I move my audience through psychology, humor, and education.
+            </p>
+          </motion.div>
+
+          {/* Video Portfolio Grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          >
+            {/* Placeholder for video samples - you can replace these with actual video embeds or thumbnails */}
+            {/* Example structure - replace with your actual videos */}
+            {[
+              {
+                title: "Peerlist Narration",
+                category: "Narration Work",
+                thumbnail: "/videos/peerlist-thumb.jpg", // Replace with actual thumbnail
+                url: "https://youtube.com/watch?v=...", // Replace with actual URL
+              },
+              {
+                title: "Course Trailer",
+                category: "Course Trailer",
+                thumbnail: "/videos/course-trailer-thumb.jpg",
+                url: "https://youtube.com/watch?v=...",
+              },
+              {
+                title: "Sales Video",
+                category: "Sales Content",
+                thumbnail: "/videos/sales-thumb.jpg",
+                url: "https://youtube.com/watch?v=...",
+              },
+              {
+                title: "Short Form Content",
+                category: "Shorts",
+                thumbnail: "/videos/short-thumb.jpg",
+                url: "https://youtube.com/watch?v=...",
+              },
+              {
+                title: "Course Trailer 2",
+                category: "Course Trailer",
+                thumbnail: "/videos/course-trailer-2-thumb.jpg",
+                url: "https://youtube.com/watch?v=...",
+              },
+              {
+                title: "Sales Video 2",
+                category: "Sales Content",
+                thumbnail: "/videos/sales-2-thumb.jpg",
+                url: "https://youtube.com/watch?v=...",
+              },
+            ].map((video, index) => (
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeInUp}
+                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1], delay: 0.1 + index * 0.05 }}
+                className="group cursor-pointer"
+              >
+                <a
+                  href={video.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden mb-3 group-hover:shadow-xl transition-shadow duration-300">
+                    {/* Video thumbnail or embed preview */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-300 to-gray-400">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <svg className="w-8 h-8 text-gray-700 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* You can replace the above div with an actual Image component or iframe embed */}
+                  </div>
+                  <div className="text-sm text-gray-500 mb-1">{video.category}</div>
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">
+                    {video.title}
+                  </h3>
+                </a>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-t border-gray-700/50">
         <div className="max-w-6xl mx-auto">
