@@ -22,8 +22,8 @@ const teachingImages = [
 // Counter animation hook
 function useCountUp(end: number, duration: number = 2000, start: number = 0) {
   const [count, setCount] = useState(start);
-  const frameRef = useRef<number>();
-  const startTimeRef = useRef<number>();
+  const frameRef = useRef<number | undefined>(undefined);
+  const startTimeRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     startTimeRef.current = Date.now();

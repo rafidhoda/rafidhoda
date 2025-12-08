@@ -6,7 +6,6 @@ import Image from "next/image";
 import Experience from "@/components/Experience";
 import Technologies from "@/components/Technologies";
 import TeachingImpact from "@/components/TeachingImpact";
-import Courses from "@/components/Courses";
 
 const recommendations = [
   {

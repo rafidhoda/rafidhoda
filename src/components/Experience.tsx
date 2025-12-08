@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
-
 const experiences = [
   {
     id: 1,
@@ -41,7 +39,7 @@ export default function Experience() {
   return (
     <div className="relative">
       <div className="space-y-6 sm:space-y-8">
-        {experiences.map((exp, index) => (
+        {experiences.map((exp) => (
           <div
             key={exp.id}
             className="relative pl-8 sm:pl-10 border-l-2 border-gray-300/50 pb-8 last:pb-0 group"
