@@ -96,8 +96,7 @@ const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
     opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
+    y: 0
   }
 };
 
@@ -450,11 +449,13 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="text-center"
           >
             {/* Profile Picture */}
             <motion.div
               variants={fadeInUp}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               className="mb-4 sm:mb-6 flex justify-center"
             >
               <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
@@ -470,6 +471,7 @@ export default function Home() {
 
             <motion.p
               variants={fadeInUp}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-3 sm:mb-4 text-gray-900 leading-[1.15] tracking-[-0.02em]"
             >
               Hey 👋 I&apos;m Rafid
@@ -478,6 +480,7 @@ export default function Home() {
             {/* Roles Badges */}
             <motion.div
               variants={fadeInUp}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               className="mb-4 sm:mb-6"
             >
               <div className="w-full grid grid-cols-2 md:flex md:flex-row md:justify-center items-center gap-3 sm:gap-4 max-w-3xl mx-auto">
@@ -511,6 +514,7 @@ export default function Home() {
             
             <motion.div
               variants={fadeInUp}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
               className="space-y-3 sm:space-y-4 text-base sm:text-lg md:text-xl text-gray-700 leading-[1.6] tracking-[-0.01em] font-medium"
             >
               <p>
@@ -531,6 +535,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="mt-6 sm:mt-8 md:mt-10"
           >
             <div className="max-w-7xl mx-auto">
@@ -551,6 +556,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-[-0.02em] leading-[1.1]">
@@ -582,6 +588,7 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="text-center mb-12 sm:mb-16 md:mb-20"
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-[-0.02em] leading-[1.1]">
@@ -605,6 +612,7 @@ export default function Home() {
               <motion.div
                 key={index}
                 variants={fadeInUp}
+                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
                 className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:bg-white hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:-translate-y-0.5"
               >
                 <span className="text-3xl sm:text-4xl flex-shrink-0">{achievement.icon}</span>
