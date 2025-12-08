@@ -98,8 +98,7 @@ const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    y: 0
   }
 };
 
@@ -113,6 +112,7 @@ export default function TeachingImpact() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={fadeInUp}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           className="text-center mb-8 sm:mb-10"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 tracking-tight">
@@ -129,6 +129,7 @@ export default function TeachingImpact() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
           className="mb-12 sm:mb-16"
         >
           {/* Mobile scroll indicator */}
@@ -217,6 +218,7 @@ export default function TeachingImpact() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             className="text-center"
           >
             <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-gray-900">
@@ -231,6 +233,7 @@ export default function TeachingImpact() {
             whileInView="visible"
             viewport={{ once: true }}
             variants={fadeInUp}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
             className="text-center"
           >
             <div className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 text-gray-900">

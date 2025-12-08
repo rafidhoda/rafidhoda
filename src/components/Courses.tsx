@@ -41,8 +41,7 @@ const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { 
     opacity: 1, 
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" }
+    y: 0
   }
 };
 
@@ -55,6 +54,7 @@ export default function Courses() {
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
         variants={fadeInUp}
+        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
         className="text-center mb-8 sm:mb-10"
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-gray-900 tracking-tight">
@@ -71,7 +71,7 @@ export default function Courses() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeInUp}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
               className="bg-gray-50 rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300"
             >
               <Link

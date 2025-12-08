@@ -37,42 +37,6 @@ const roles = [
   },
 ];
 
-const technologies = [
-  // Frontend
-  "React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS",
-  // Backend
-  "Node.js", "Python", "Express", "REST APIs", "GraphQL",
-  // Tools & Platforms
-  "Git", "GitHub", "Vercel", "Netlify", "Figma", "VS Code",
-  // Mobile
-  "React Native", "Expo",
-  // Databases
-  "PostgreSQL", "MongoDB", "Firebase",
-  // Video & Design
-  "Premiere Pro", "After Effects", "Final Cut Pro", "Canva",
-  // Sales & Business
-  "Salesforce", "HubSpot", "CRM", "Sales Engineering",
-];
-
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: [0.6, -0.05, 0.01, 0.99] }
-  }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
 export default function Skills() {
   return (
