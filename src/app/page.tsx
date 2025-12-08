@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Experience from "@/components/Experience";
 import Technologies from "@/components/Technologies";
 import TeachingImpact from "@/components/TeachingImpact";
 
@@ -59,37 +58,6 @@ const recommendations = [
   },
 ];
 
-const achievements = [
-  {
-    icon: "💻",
-    text: "Sold my first website at age 14 — a rock band's homepage for $200.",
-  },
-  {
-    icon: "🎬",
-    text: "Won *Honorable Mention* at the Kosmorama Film Festival (Trondheim, 2006).",
-  },
-  {
-    icon: "🌐",
-    text: "Created a video tutorial that went viral *before YouTube* — 15,000 unique visitors/month.",
-  },
-  {
-    icon: "💼",
-    text: "Named *Top Salesperson* out of 25 in my first sales job (2015).",
-  },
-  {
-    icon: "🧮",
-    text: "Won national science competition for a math essay (2011).",
-  },
-  {
-    icon: "👦🏽",
-    text: "Taught 1,000+ kids to code through live camps and workshops.",
-  },
-  {
-    icon: "🌍",
-    text: "Taught 15,000+ students worldwide through courses on Coursera, freeCodeCamp, and Scrimba.",
-  },
-];
-
 // Animation variants for scroll reveals
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -99,15 +67,6 @@ const fadeInUp = {
   }
 };
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
 // Create hero quotes with short previews and full text from recommendations
 const heroQuotes = recommendations.map((rec) => {
@@ -547,97 +506,74 @@ export default function Home() {
       {/* Teaching Impact Section */}
       <TeachingImpact />
 
-      {/* Experience Section */}
-      <section className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-br from-amber-50 via-orange-50 to-red-50">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center mb-12 sm:mb-16 md:mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-[-0.02em] leading-[1.1]">
-              <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-                Experience
-              </span>
-            </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold tracking-[-0.01em]">
-              Across sales, engineering, and education
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={{ visible: { opacity: 1 } }}
-          >
-            <Experience />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Achievements Section */}
-      <section className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center mb-12 sm:mb-16 md:mb-20"
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 tracking-[-0.02em] leading-[1.1]">
-              <span className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                Key Milestones
-              </span>
-            </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 font-semibold tracking-[-0.01em]">
-              Projects and achievements I&apos;m proud of
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={staggerContainer}
-            className="space-y-4 sm:space-y-6"
-          >
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:bg-white hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <span className="text-3xl sm:text-4xl flex-shrink-0">{achievement.icon}</span>
-                <p className="text-base sm:text-lg text-gray-800 leading-relaxed pt-1">
-                  {achievement.text.split("*").map((part, i) =>
-                    i % 2 === 1 ? (
-                      <strong key={i} className="font-semibold text-gray-900">
-                        {part}
-                      </strong>
-                    ) : (
-                      part
-                    )
-                  )}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* Footer */}
-      <footer className="py-12 sm:py-16 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-200 text-lg sm:text-xl font-medium">
-            Let&apos;s connect and build something great together
-          </p>
+      <footer className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-t border-gray-700/50">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            className="text-center"
+          >
+            {/* Name and Tagline */}
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-white">
+              Rafid Hoda
+            </h3>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 font-medium">
+              The Seller. The Builder. The Teacher. The Storyteller.
+            </p>
+
+            {/* Social Links / Contact */}
+            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+              <a
+                href="mailto:hello@rafidhoda.com"
+                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+              >
+                Email
+              </a>
+              <span className="text-gray-600">•</span>
+              <a
+                href="https://linkedin.com/in/rafidhoda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+              >
+                LinkedIn
+              </a>
+              <span className="text-gray-600">•</span>
+              <a
+                href="https://github.com/rafidhoda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+              >
+                GitHub
+              </a>
+              <span className="text-gray-600">•</span>
+              <a
+                href="https://youtube.com/@rafidhoda"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+              >
+                YouTube
+              </a>
+            </div>
+
+            {/* CTA */}
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-semibold mb-6 sm:mb-8">
+              Let&apos;s connect and build something great together
+            </p>
+
+            {/* Copyright */}
+            <div className="pt-6 sm:pt-8 border-t border-gray-700/50">
+              <p className="text-sm sm:text-base text-gray-400">
+                © {new Date().getFullYear()} Rafid Hoda. All rights reserved.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </footer>
     </div>
