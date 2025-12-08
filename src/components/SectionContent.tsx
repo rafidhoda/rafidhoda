@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Skills from "./Skills";
 
 interface SectionContentProps {
   section: "recommendations" | "experience" | "skills" | "achievements";
@@ -102,38 +103,41 @@ export default function SectionContent({ section }: SectionContentProps) {
 
   if (section === "recommendations") {
     return (
-      <div className="w-full px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="w-full px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8 sm:mb-12 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
+          {current.title}
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {recommendations.map((rec, index) => (
             <div
               key={index}
-              className="w-full bg-white rounded-xl p-6 border border-gray-200 hover:shadow-md transition-shadow"
+              className="w-full bg-white/90 backdrop-blur-sm rounded-2xl p-5 sm:p-6 border border-gray-200/50 hover:shadow-xl hover:border-gray-300/50 transition-all duration-300 hover:-translate-y-1"
             >
               {/* Review Text */}
-              <p className="text-gray-800 leading-relaxed mb-6 text-left">
+              <p className="text-gray-800 leading-relaxed mb-6 text-left text-sm sm:text-base">
                 &quot;{rec.text}&quot;
               </p>
 
               {/* Reviewer Info */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gray-300 overflow-hidden flex-shrink-0 flex items-center justify-center">
+              <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 overflow-hidden flex-shrink-0 flex items-center justify-center ring-2 ring-white shadow-sm">
                   {rec.image !== "/placeholder-avatar.jpg" ? (
                     <Image
                       src={rec.image}
                       alt={rec.name}
-                      width={48}
-                      height={48}
+                      width={56}
+                      height={56}
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="text-gray-500 text-lg font-semibold">
+                    <span className="text-gray-600 text-lg font-semibold">
                       {rec.name.charAt(0)}
                     </span>
                   )}
                 </div>
-                <div>
-                  <p className="font-semibold text-gray-900 text-left">{rec.name}</p>
-                  <p className="text-sm text-gray-600 text-left">
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-gray-900 text-left text-sm sm:text-base truncate">{rec.name}</p>
+                  <p className="text-xs sm:text-sm text-gray-600 text-left truncate">
                     {rec.role} at {rec.company}
                   </p>
                 </div>
@@ -147,21 +151,21 @@ export default function SectionContent({ section }: SectionContentProps) {
 
   if (section === "achievements") {
     return (
-      <div className="px-6">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center mb-12">
+      <div className="px-4 sm:px-6">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8 sm:mb-12 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
           {current.title}
         </h2>
-        <div className="space-y-6 max-w-3xl mx-auto">
+        <div className="space-y-4 sm:space-y-6 max-w-3xl mx-auto">
           {achievements.map((achievement, index) => (
             <div
               key={index}
-              className="flex items-start gap-4 p-6 bg-white/50 rounded-lg hover:bg-white/70 transition-colors"
+              className="flex items-start gap-4 sm:gap-5 p-5 sm:p-6 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200/50 hover:bg-white hover:shadow-lg hover:border-gray-300/50 transition-all duration-300 hover:-translate-y-0.5"
             >
-              <span className="text-3xl flex-shrink-0">{achievement.icon}</span>
-              <p className="text-lg text-gray-800 leading-relaxed pt-1">
+              <span className="text-3xl sm:text-4xl flex-shrink-0">{achievement.icon}</span>
+              <p className="text-base sm:text-lg text-gray-800 leading-relaxed pt-1">
                 {achievement.text.split("*").map((part, i) =>
                   i % 2 === 1 ? (
-                    <strong key={i} className="font-semibold">
+                    <strong key={i} className="font-semibold text-gray-900">
                       {part}
                     </strong>
                   ) : (
@@ -176,9 +180,20 @@ export default function SectionContent({ section }: SectionContentProps) {
     );
   }
 
+  if (section === "skills") {
+    return (
+      <div className="w-full">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8 sm:mb-12 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent px-4 sm:px-6">
+          {current.title}
+        </h2>
+        <Skills />
+      </div>
+    );
+  }
+
   return (
-    <div className="px-6">
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 text-center">
+    <div className="px-4 sm:px-6">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 text-center bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent">
         {current.title}
       </h2>
     </div>
