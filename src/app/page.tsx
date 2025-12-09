@@ -44,8 +44,8 @@ const recommendations = [
   },
   {
     name: "Arwa Ahmed Mawlod",
-    role: "Specialist Fluid Characterization & PVT",
-    company: "ADNOC Onshore",
+    role: "Petroleum Engineer",
+    company: "ADNOC",
     image: "/recommenders/arwa-ahmed-mawlod.jpeg",
     text: "Rafid was amazing with my daughter, Layan — patient, creative, and made coding in Roblox Studio fun and easy to understand. She stayed engaged and inspired the entire session. His kindness, encouragement, and personal touch truly make him a rare teacher who turns learning into an adventure.",
   },
@@ -84,227 +84,65 @@ const heroQuotes = recommendations.map((rec) => {
   };
 });
 
-function QuoteCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [selectedQuote, setSelectedQuote] = useState<number | null>(null);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % heroQuotes.length);
-    }, 5000); // Change quote every 5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-    }),
-  };
-
-  const goToPrevious = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + heroQuotes.length) % heroQuotes.length);
-  };
-
-  const goToNext = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % heroQuotes.length);
-  };
-
-  const quote = heroQuotes[currentIndex];
+function TestimonialsCarousel() {
+  const cardWidth = 400;
+  const gap = 24;
+  const totalWidth = heroQuotes.length * (cardWidth + gap);
 
   return (
-    <>
-      <div className="relative w-full max-w-5xl mx-auto">
-        <div className="min-h-[280px] sm:min-h-[300px] md:min-h-[320px] flex flex-col justify-center">
-          {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-0 sm:-left-4 md:-left-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/90 backdrop-blur-lg border-2 border-gray-200 hover:border-purple-400 shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group"
-            aria-label="Previous testimonial"
+    <div className="relative w-full overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}>
+      {/* Auto-scrolling testimonials */}
+      <motion.div
+        className="flex gap-6"
+        animate={{
+          x: [0, -totalWidth],
+        }}
+        transition={{
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 60, // Very slow - 60 seconds for full cycle
+            ease: "linear",
+          },
+        }}
+      >
+        {/* Duplicate testimonials for seamless loop */}
+        {[...heroQuotes, ...heroQuotes].map((quote, index) => (
+          <div
+            key={`${quote.name}-${index}`}
+            className="flex-shrink-0 w-[85vw] sm:w-[380px] md:w-[400px]"
           >
-            <svg
-              className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-purple-600 transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
-          <button
-            onClick={goToNext}
-            className="absolute right-0 sm:-right-4 md:-right-8 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-white/90 backdrop-blur-lg border-2 border-gray-200 hover:border-purple-400 shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group"
-            aria-label="Next testimonial"
-          >
-            <svg
-              className="w-5 h-5 sm:w-6 sm:h-6 text-gray-700 group-hover:text-purple-600 transition-colors"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={currentIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{
-                x: { type: "spring", stiffness: 300, damping: 30 },
-                opacity: { duration: 0.3 },
-              }}
-              className="text-center px-8 sm:px-12 md:px-16"
-            >
-              {/* Quote */}
-              <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-900 leading-[1.3] tracking-[-0.01em] mb-4 sm:mb-5 max-w-4xl mx-auto min-h-[100px] sm:min-h-[110px] md:min-h-[120px] flex items-center justify-center">
-                &quot;{quote.preview}
-                {quote.preview !== quote.fullText && <span className="opacity-60">...</span>}
-                &quot;
-              </blockquote>
-
-              {/* Read Full Testimonial Button */}
-              {quote.preview !== quote.fullText && (
-                <button
-                  onClick={() => setSelectedQuote(currentIndex)}
-                  className="mx-auto mb-6 sm:mb-8 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-gray-100 hover:bg-purple-100 text-gray-700 hover:text-purple-700 text-xs sm:text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md cursor-pointer"
-                >
-                  Read full testimonial
-                </button>
-              )}
-
-              {/* Author Info */}
-              <div className="flex items-center justify-center gap-4 sm:gap-5">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 overflow-hidden flex-shrink-0 ring-3 ring-white shadow-xl flex items-center justify-center">
+            <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full flex flex-col">
+              {/* Author Info - Above Quote */}
+              <div className="flex flex-col items-center mb-5 sm:mb-6">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 overflow-hidden flex-shrink-0 ring-2 ring-gray-200 shadow-lg flex items-center justify-center mb-3">
                   <Image
                     src={quote.image}
                     alt={quote.name}
-                    width={96}
-                    height={96}
+                    width={72}
+                    height={72}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="text-left">
-                  <p className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">{quote.name}</p>
-                  <p className="text-xs sm:text-sm text-gray-700 font-medium">
+                <div className="text-center">
+                  <p className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-1">{quote.name}</p>
+                  <p className="text-xs sm:text-sm text-gray-600 font-medium">
                     {quote.role} at {quote.company}
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
 
-          {/* Dots indicator */}
-          <div className="flex justify-center gap-2 mt-4 sm:mt-6">
-            {heroQuotes.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setDirection(index > currentIndex ? 1 : -1);
-                  setCurrentIndex(index);
-                }}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 w-10 shadow-lg"
-                    : "bg-gray-300 hover:bg-gray-400 w-2"
-                }`}
-                aria-label={`Go to quote ${index + 1}`}
-              />
-            ))}
+              {/* Quote */}
+              <blockquote className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 leading-[1.4] tracking-[-0.01em] text-center flex-grow flex items-center">
+                &quot;{quote.preview}
+                {quote.preview !== quote.fullText && <span className="opacity-60">...</span>}
+                &quot;
+              </blockquote>
+            </div>
           </div>
-        </div>
-      </div>
-
-      {/* Full Text Modal */}
-      <AnimatePresence>
-        {selectedQuote !== null && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
-            onClick={() => setSelectedQuote(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl p-8 sm:p-10 md:p-12 max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
-            >
-              <div className="flex justify-between items-start mb-6">
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900">What Others Say</h3>
-                <button
-                  onClick={() => setSelectedQuote(null)}
-                  className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                  aria-label="Close"
-                >
-                  <svg
-                    className="w-5 h-5 text-gray-700"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <div className="mb-6">
-                <blockquote className="text-lg sm:text-xl md:text-2xl text-gray-800 leading-relaxed mb-6">
-                  &quot;{heroQuotes[selectedQuote].fullText}&quot;
-                </blockquote>
-
-                <div className="flex items-center gap-4 pt-6 border-t-2 border-gray-200">
-                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 overflow-hidden flex-shrink-0 ring-4 ring-white shadow-xl">
-                    <Image
-                      src={heroQuotes[selectedQuote].image}
-                      alt={heroQuotes[selectedQuote].name}
-                      width={80}
-                      height={80}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-900 text-lg sm:text-xl">
-                      {heroQuotes[selectedQuote].name}
-                    </p>
-                    <p className="text-sm sm:text-base text-gray-700 font-medium">
-                      {heroQuotes[selectedQuote].role} at {heroQuotes[selectedQuote].company}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
+        ))}
+      </motion.div>
+    </div>
   );
 }
 
@@ -425,90 +263,145 @@ function VideoCarousel() {
 }
 
 export default function Home() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      // Hero section is approximately 85-90vh, so transition around 70vh
+      const heroHeight = window.innerHeight * 0.85;
+      setIsScrolled(scrollPosition > heroHeight * 0.8);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="relative h-[80vh] min-h-[500px] max-h-[750px] flex items-center justify-center px-4 sm:px-6 pt-12 sm:pt-16 pb-12 sm:pb-16 overflow-hidden">
-        {/* Vibrant background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 via-pink-50 to-amber-50 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(120,119,198,0.1),transparent_50%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(251,146,60,0.1),transparent_50%)] pointer-events-none" />
-        
-        <div className="relative z-10 max-w-6xl mx-auto w-full h-full flex flex-col justify-center">
-          <div className="text-center mb-6 sm:mb-8">
-            {/* Name */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold mb-3 sm:mb-4 tracking-[-0.03em] leading-[0.95]"
+      {/* Navbar */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
+        isScrolled 
+          ? 'bg-white/95 border-gray-200/80 shadow-sm' 
+          : 'bg-transparent border-transparent'
+      }`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 sm:h-20">
+            {/* Logo/Image - Left aligned */}
+            <button
+              onClick={scrollToTop}
+              className="flex items-center hover:opacity-80 transition-opacity duration-200 cursor-pointer p-2 sm:p-3"
+              aria-label="Scroll to top"
             >
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 via-pink-600 to-orange-500 bg-clip-text text-transparent drop-shadow-lg">
-                Rafid Hoda
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12">
+                <Image
+                  src="/rafid-hoda.png"
+                  alt="Rafid Hoda"
+                  fill
+                  className="object-contain"
+                  sizes="48px"
+                />
+              </div>
+            </button>
+
+            {/* Navigation Items - Right aligned */}
+            <div className="flex items-center gap-5 sm:gap-7 md:gap-9">
+              {[
+                { label: "About", href: "#intro" },
+                { label: "Technologies", href: "#technologies" },
+                { label: "Teaching", href: "#teaching" },
+                { label: "Content", href: "#content" },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className={`text-base sm:text-lg md:text-xl font-medium transition-colors duration-200 relative group ${
+                    isScrolled 
+                      ? 'text-gray-700 hover:text-gray-900' 
+                      : 'text-gray-100 hover:text-white'
+                  }`}
+                >
+                  {item.label}
+                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 ${
+                    isScrolled ? 'bg-gray-900' : 'bg-white'
+                  } group-hover:w-full`} />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative min-h-[60vh] sm:min-h-[65vh] flex items-center justify-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900">
+        {/* Enhanced background with depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-blue-900/20 via-purple-900/30 to-pink-900/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(120,119,198,0.2),transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(251,146,60,0.15),transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_70%)] pointer-events-none" />
+        
+        {/* Animated grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: '50px 50px'
+        }} />
+        
+        <div className="relative z-10 max-w-7xl mx-auto w-full">
+          <div className="text-center">
+            {/* Name with enhanced styling */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, ease: [0.6, -0.05, 0.01, 0.99] }}
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-4 sm:mb-6 tracking-[-0.04em] leading-[0.9]"
+            >
+              <span className="relative inline-block">
+                <span className="bg-gradient-to-r from-blue-400 via-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
+                  Rafid Hoda
+                </span>
+                {/* Subtle glow effect */}
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-purple-400/30 via-pink-400/30 to-orange-400/30 blur-2xl -z-10" />
               </span>
             </motion.h1>
 
-            {/* Subtitle */}
+            {/* Subtitle with better typography */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 font-semibold leading-[1.2] tracking-[-0.01em] max-w-3xl mx-auto mb-6 sm:mb-8"
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.6, -0.05, 0.01, 0.99] }}
+              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 font-semibold leading-[1.3] tracking-[-0.015em] max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12"
             >
               The Seller. The Builder. The Teacher. The Storyteller.
             </motion.p>
           </div>
 
-          {/* Animated Quotes Carousel */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
-            className="relative"
-          >
-            {/* Decorative quote marks */}
-            <div className="absolute -top-8 sm:-top-10 md:-top-12 left-1/2 transform -translate-x-1/2 text-6xl sm:text-7xl md:text-8xl lg:text-9xl bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent font-serif leading-none pointer-events-none select-none opacity-30">
-              &ldquo;
-            </div>
-            
-            <QuoteCarousel />
-          </motion.div>
 
-          {/* Scroll Down Arrow - Positioned at section divider */}
+        </div>
+      </section>
+
+      {/* What People Are Saying Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-0 bg-white">
+        <div className="mb-10 sm:mb-12 md:mb-16 px-4 sm:px-6">
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
-            className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 z-20"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            className="text-center max-w-7xl mx-auto"
           >
-            <motion.a
-              href="#intro"
-              className="flex items-center justify-center bg-white/90 backdrop-blur-lg rounded-full p-2 sm:p-2.5 shadow-lg border-2 border-gray-200 hover:border-purple-400 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer group"
-              animate={{
-                y: [0, 8, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <svg
-                className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
-              </svg>
-            </motion.a>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              What people are saying
+            </h2>
           </motion.div>
         </div>
+
+        <TestimonialsCarousel />
       </section>
 
       {/* Intro Section */}
@@ -604,26 +497,30 @@ export default function Home() {
           </motion.div>
           
           {/* Technologies Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="mt-6 sm:mt-8 md:mt-10"
-          >
-            <div className="max-w-7xl mx-auto">
-              <Technologies />
-            </div>
-          </motion.div>
+          <div id="technologies">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInUp}
+              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+              className="mt-6 sm:mt-8 md:mt-10"
+            >
+              <div className="max-w-7xl mx-auto">
+                <Technologies />
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Teaching Impact Section */}
-      <TeachingImpact />
+      <div id="teaching">
+        <TeachingImpact />
+      </div>
 
       {/* Content Creation Section */}
-      <section className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
+      <section id="content" className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <motion.div
