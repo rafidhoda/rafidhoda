@@ -331,7 +331,7 @@ export default function Home() {
                   className="h-8 sm:h-10 md:h-12 w-auto transition-opacity duration-300 hover:opacity-100"
                 />
                 <Image
-                  src="/companies/freecodecamp.png"
+                  src="/companies/freeCodeCamp.png"
                   alt="freeCodeCamp"
                   width={120}
                   height={40}
