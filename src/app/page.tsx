@@ -33,13 +33,6 @@ const recommendations = [
     image: "/recommenders/sindre-haaland.jpeg",
     text: "Rafid has a unique ability to simplify and explain complex problems through video. His work helped our customers and internal teams understand difficult concepts faster, and he consistently received internal praise for the clarity of his explanations.",
   },
-  {
-    name: "Harry Hindess",
-    role: "Sales Manager",
-    company: "",
-    image: "/recommenders/harry-hindess.jpeg",
-    text: "Rafid is an excellent communicator with a natural ability to simplify complex problems for customers. Across multiple customer projects, he was thorough, professional, and consistently delivered a fantastic experience by making technical ideas easy to understand.",
-  },
 ];
 
 // Animation variants for scroll reveals
@@ -70,8 +63,8 @@ const heroQuotes = recommendations.map((rec) => {
 
 function TestimonialsCarousel() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+    <div className="w-full px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
         {heroQuotes.map((quote, index) => (
           <motion.div
             key={quote.name}
@@ -81,30 +74,33 @@ function TestimonialsCarousel() {
             variants={fadeInUp}
             transition={{ duration: 0.5, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
-            <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full flex flex-col">
-              {/* Author Info - Above Quote */}
-              <div className="flex flex-col items-center mb-5 sm:mb-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 overflow-hidden flex-shrink-0 ring-2 ring-gray-200 shadow-lg flex items-center justify-center mb-3">
-                  <Image
-                    src={quote.image}
-                    alt={quote.name}
-                    width={72}
-                    height={72}
-                    className="w-full h-full object-cover"
-                  />
+            <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full flex flex-col hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-purple-50/0 to-pink-50/0 group-hover:from-blue-50/30 group-hover:via-purple-50/20 group-hover:to-pink-50/30 transition-all duration-300 pointer-events-none" />
+              <div className="relative z-10 flex flex-col h-full">
+                {/* Author Info - Above Quote */}
+                <div className="flex flex-col items-center mb-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-18 md:h-18 rounded-full bg-gradient-to-br from-blue-200 via-purple-200 to-pink-200 overflow-hidden flex-shrink-0 ring-2 ring-gray-200 shadow-lg flex items-center justify-center mb-2">
+                    <Image
+                      src={quote.image}
+                      alt={quote.name}
+                      width={72}
+                      height={72}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="text-center">
+                    <p className="font-semibold text-gray-900 text-sm sm:text-base md:text-lg mb-0.5">{quote.name}</p>
+                    <p className="text-xs sm:text-sm text-gray-600 font-medium">
+                      {quote.role}{quote.company ? ` at ${quote.company}` : ''}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-center">
-                  <p className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-1">{quote.name}</p>
-                  <p className="text-xs sm:text-sm text-gray-600 font-medium">
-                    {quote.role}{quote.company ? ` at ${quote.company}` : ''}
-                  </p>
-                </div>
-              </div>
 
-              {/* Quote */}
-              <blockquote className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 leading-[1.4] tracking-[-0.01em] text-left flex-grow flex items-center">
-                {quote.fullText}
-              </blockquote>
+                {/* Quote */}
+                <blockquote className="text-base sm:text-lg md:text-xl font-normal text-gray-700 leading-relaxed tracking-[-0.01em] text-left flex-grow flex items-center">
+                  {quote.fullText}
+                </blockquote>
+              </div>
             </div>
           </motion.div>
         ))}
@@ -141,28 +137,14 @@ export default function Home() {
           : 'bg-transparent border-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 sm:h-20">
-            {/* Logo/Image - Left aligned */}
-                <button
-              onClick={scrollToTop}
-              className="flex items-center hover:opacity-80 transition-opacity duration-200 cursor-pointer p-2 sm:p-3"
-              aria-label="Scroll to top"
-            >
-              <div className="relative w-10 h-10 sm:w-12 sm:h-12">
-                <Image
-                  src="/rafid-hoda.png"
-                  alt="Rafid Hoda"
-                  fill
-                  className="object-contain"
-                  sizes="48px"
-                />
-              </div>
-            </button>
-
-            {/* Navigation Items - Right aligned */}
+          <div className="flex items-center justify-center h-16 sm:h-20">
+            {/* Navigation Items - Centered */}
             <div className="flex items-center gap-5 sm:gap-7 md:gap-9">
               {[
-                { label: "About", href: "#about" },
+                { label: "Home", href: "#" },
+                { label: "CV", href: "#" },
+                { label: "Courses", href: "#" },
+                { label: "Contact", href: "#" },
               ].map((item) => (
                 <a
                   key={item.label}
@@ -227,12 +209,12 @@ export default function Home() {
               I create product videos that save your team thousands of explanations
             </motion.p>
 
-            {/* CTA Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="flex justify-center"
+              className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
             >
               <button
                 onClick={() => {
@@ -244,6 +226,14 @@ export default function Home() {
               >
                 Chat with me now
               </button>
+              <a
+                href="https://cal.com/rafidhoda/20-minute-intro-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
+                Book a 20-min call
+              </a>
             </motion.div>
           </div>
 
@@ -252,8 +242,12 @@ export default function Home() {
       </section>
 
       {/* 20 Years of Technical Videos Section */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        
+        <div className="max-w-6xl mx-auto relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -292,6 +286,15 @@ export default function Home() {
                 </a>
                 {', '}
                 <a
+                  href="https://www.udemy.com/course/roblox-studio-for-beginners"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  Udemy
+                </a>
+                {', '}
+                <a
                   href="https://www.youtube.com/watch?v=UFD4SP91tSM"
                   target="_blank"
                   rel="noreferrer"
@@ -299,7 +302,7 @@ export default function Home() {
                 >
                   freeCodeCamp
                 </a>
-                {', '}
+                {', and '}
                 <a
                   href="https://scrimba.com/build-a-mobile-app-with-firebase-c0g"
                   target="_blank"
@@ -308,26 +311,40 @@ export default function Home() {
                 >
                   Scrimba
                 </a>
-                {', '}
-                <a
-                  href="https://www.udemy.com/course/roblox-studio-for-beginners"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
-                >
-                  Udemy
-                </a>
-                {', and '}
-                <a
-                  href="https://www.utdannet.no/kurs/roblox-studio-for-nybegynnere"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
-                >
-                  utdannet.no
-                </a>
                 . I&apos;ve used video to make life easier for Sales, Support, Engineering, and Product teams. I even built a video-based job-hunting framework that gets a 70% reply rate (industry average is 2 percent).
               </p>
+
+              {/* Company Logos */}
+              <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-10 mt-6 sm:mt-8 opacity-70">
+                <Image
+                  src="/companies/coursera.png"
+                  alt="Coursera"
+                  width={120}
+                  height={40}
+                  className="h-8 sm:h-10 md:h-12 w-auto transition-opacity duration-300 hover:opacity-100"
+                />
+                <Image
+                  src="/companies/udemy.png"
+                  alt="Udemy"
+                  width={120}
+                  height={40}
+                  className="h-8 sm:h-10 md:h-12 w-auto transition-opacity duration-300 hover:opacity-100"
+                />
+                <Image
+                  src="/companies/freecodecamp.png"
+                  alt="freeCodeCamp"
+                  width={120}
+                  height={40}
+                  className="h-8 sm:h-10 md:h-12 w-auto transition-opacity duration-300 hover:opacity-100"
+                />
+                <Image
+                  src="/companies/scrimba.png"
+                  alt="Scrimba"
+                  width={120}
+                  height={40}
+                  className="h-8 sm:h-10 md:h-12 w-auto transition-opacity duration-300 hover:opacity-100"
+                />
+              </div>
               
               <p>
                 If something is complicated, there is a good chance I&apos;ve already made a video that makes everyone&apos;s life easier.
@@ -342,7 +359,12 @@ export default function Home() {
       </section>
 
       {/* What People Are Saying Section */}
-      <section className="py-16 sm:py-20 md:py-24 px-0 bg-white">
+      <section className="py-16 sm:py-20 md:py-24 px-0 bg-gradient-to-br from-gray-50 to-slate-50 relative overflow-hidden">
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, rgb(0 0 0) 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
+        }} />
         <div className="mb-10 sm:mb-12 md:mb-16 px-4 sm:px-6">
           <motion.div
             initial="hidden"
@@ -358,12 +380,41 @@ export default function Home() {
           </motion.div>
         </div>
 
-        <TestimonialsCarousel />
+        <div className="relative z-10">
+          <TestimonialsCarousel />
+          
+          {/* Read All Testimonials Link */}
+          <div className="text-center mt-8 sm:mt-10 px-4 sm:px-6">
+            <a
+              href="/testimonials"
+              className="inline-flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium text-base sm:text-lg transition-colors duration-200 group"
+            >
+              Read all testimonials
+              <svg
+                className="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
       </section>
 
       {/* What I Can Do Section */}
-      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-white via-amber-50/20 to-orange-50/20 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-72 h-72 bg-orange-200/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-amber-200/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           {/* Section Title */}
           <motion.div
             initial="hidden"
@@ -396,7 +447,7 @@ export default function Home() {
                     allowFullScreen
                     className="w-full h-full"
                   />
-              </div>
+                </div>
             </div>
           </motion.div>
 
@@ -410,13 +461,16 @@ export default function Home() {
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  Product Explanation Videos
-                </h3>
-                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                  Clear, concise videos that explain your product&apos;s core concepts, features, and workflows. These videos reduce support load, speed up onboarding, and help every team speak the same language.
-                </p>
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-blue-100 h-full hover:shadow-2xl hover:border-blue-200 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100/30 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-200/40 transition-colors duration-300" />
+                <div className="relative z-10">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    Product Explanation Videos
+                  </h3>
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Clear, concise videos that explain your product&apos;s core concepts, features, and workflows. These videos reduce support load, speed up onboarding, and help every team speak the same language.
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -428,13 +482,16 @@ export default function Home() {
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  Technical Walkthroughs and Demos
-                </h3>
-                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                  Step-by-step demos that simplify complex workflows. Perfect for engineering handoffs, pre-sales, onboarding, and internal training.
-                </p>
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-purple-100 h-full hover:shadow-2xl hover:border-purple-200 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-100/30 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-purple-200/40 transition-colors duration-300" />
+                <div className="relative z-10">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    Technical Walkthroughs and Demos
+                  </h3>
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Step-by-step demos that simplify complex workflows. Perfect for engineering handoffs, pre-sales, onboarding, and internal training.
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -446,13 +503,16 @@ export default function Home() {
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  Customer Training Content
-                </h3>
-                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                  Reusable training content that teaches customers how to use your product without needing one-on-one guidance.
-                </p>
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-indigo-100 h-full hover:shadow-2xl hover:border-indigo-200 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-100/30 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-indigo-200/40 transition-colors duration-300" />
+                <div className="relative z-10">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    Customer Training Content
+                  </h3>
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Reusable training content that teaches customers how to use your product without needing one-on-one guidance.
+                  </p>
+                </div>
               </div>
             </motion.div>
 
@@ -464,15 +524,18 @@ export default function Home() {
               variants={fadeInUp}
               transition={{ duration: 0.5, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
             >
-              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                  Internal Enablement Videos
-                </h3>
-                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
-                  Short videos that help Sales, Support, and Success teams understand the product deeply, so they can deliver value without relying on engineers.
-                </p>
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-pink-100 h-full hover:shadow-2xl hover:border-pink-200 transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-pink-100/30 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-pink-200/40 transition-colors duration-300" />
+                <div className="relative z-10">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                    Internal Enablement Videos
+                  </h3>
+                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Short videos that help Sales, Support, and Success teams understand the product deeply, so they can deliver value without relying on engineers.
+                  </p>
                 </div>
-              </motion.div>
+              </div>
+            </motion.div>
           </div>
 
           {/* Bottom Paragraph */}
@@ -482,83 +545,69 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
             transition={{ duration: 0.6, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center max-w-4xl mx-auto mb-8 sm:mb-12"
           >
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed">
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 sm:mb-10">
               Most teams waste hours repeating the same explanation across Sales, Support, Engineering, and Success. I help you explain your product once, clearly, in a format that scales across the entire organization.
             </p>
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6">
+              <button
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.$crisp) {
+                    window.$crisp.push(['do', 'chat:open']);
+                  }
+                }}
+                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
+                Chat with me now
+              </button>
+              <a
+                href="https://cal.com/rafidhoda/20-minute-intro-call"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-white border-2 border-gray-300 text-gray-900 font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-xl hover:shadow-2xl hover:border-gray-400 hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
+                Book a 20-min call
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 border-t border-gray-700/50">
+      <footer className="py-8 sm:py-10 px-4 sm:px-6 bg-gray-50 border-t border-gray-200">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center"
-          >
-            {/* Name and Tagline */}
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-white">
-              Rafid Hoda
-            </h3>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-10 font-medium">
-              The Seller. The Builder. The Teacher. The Storyteller.
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-600">
+              © {new Date().getFullYear()} Rafid Hoda
             </p>
-
-            {/* Social Links / Contact */}
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-10">
+            <div className="flex items-center gap-4">
               <a
                 href="mailto:hello@rafidhoda.com"
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+                className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 Email
               </a>
-              <span className="text-gray-600">•</span>
               <a
                 href="https://linkedin.com/in/rafidhoda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+                className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 LinkedIn
               </a>
-              <span className="text-gray-600">•</span>
-              <a
-                href="https://github.com/rafidhoda"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
-              >
-                GitHub
-              </a>
-              <span className="text-gray-600">•</span>
               <a
                 href="https://youtube.com/@rafidhoda"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors duration-200 text-sm sm:text-base font-medium"
+                className="text-sm text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 YouTube
               </a>
             </div>
-
-            {/* CTA */}
-            <p className="text-lg sm:text-xl md:text-2xl text-white font-semibold mb-6 sm:mb-8">
-              Let&apos;s connect and build something great together
-            </p>
-
-            {/* Copyright */}
-            <div className="pt-6 sm:pt-8 border-t border-gray-700/50">
-              <p className="text-sm sm:text-base text-gray-400">
-                © {new Date().getFullYear()} Rafid Hoda. All rights reserved.
-              </p>
-            </div>
-          </motion.div>
+          </div>
         </div>
       </footer>
     </div>
