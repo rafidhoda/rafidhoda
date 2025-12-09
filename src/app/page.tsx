@@ -378,6 +378,28 @@ export default function Home() {
             </h2>
           </motion.div>
 
+          {/* Video Preview */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            className="mb-12 sm:mb-16"
+          >
+            <div className="max-w-3xl mx-auto">
+              <div className="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-2xl">
+                  <iframe
+                  src="https://www.youtube.com/embed/pizTc0soNZo"
+                  title="Video Preview"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+              </div>
+            </div>
+          </motion.div>
+
           {/* Deliverables Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-12 sm:mb-16">
             {/* Deliverable #1 */}
