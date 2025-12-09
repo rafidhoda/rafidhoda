@@ -109,26 +109,24 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div
-        className={`md:hidden fixed inset-0 top-16 sm:top-20 bg-white/98 backdrop-blur-md border-b border-gray-200 transition-all duration-300 z-40 ${
-          isMobileMenuOpen
-            ? 'opacity-100 visible translate-y-0'
-            : 'opacity-0 invisible -translate-y-4 pointer-events-none'
-        }`}
-      >
-        <div className="flex flex-col items-center justify-start pt-8 pb-6 px-4 space-y-4 h-full overflow-y-auto">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-lg font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200 py-2 w-full text-center border-b border-gray-100 last:border-b-0"
-            >
-              {item.label}
-            </Link>
-          ))}
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 top-16 sm:top-20 bg-white backdrop-blur-md z-40 overflow-y-auto"
+        >
+          <div className="flex flex-col items-center justify-start pt-8 pb-6 px-4 min-h-full">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-xl font-medium text-gray-900 hover:text-gray-700 transition-colors duration-200 py-4 w-full text-center border-b border-gray-200 last:border-b-0"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 }
