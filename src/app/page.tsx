@@ -308,6 +308,122 @@ function QuoteCarousel() {
   );
 }
 
+// Video Carousel Component
+function VideoCarousel() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const videos = [
+    {
+      id: "a3Jb5CO1iNs",
+      title: "Lesson from Roblox Studio for Beginners Course",
+    },
+    {
+      id: "cJYVUnE8gIM",
+      title: "#1 Create a new Firebase Project",
+    },
+    {
+      id: "0VPpdnocoHk",
+      title: "Daily Routine app in 5 mins",
+    },
+    {
+      id: "SdqrX5TEUQ4",
+      title: "Narration for Peerlist",
+    },
+  ];
+
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={fadeInUp}
+      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      className="relative"
+    >
+      {/* Video Container */}
+      <div className="relative max-w-4xl mx-auto">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentIndex}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.3 }}
+            className="relative"
+          >
+            <div className="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-2xl">
+              <iframe
+                src={`https://www.youtube.com/embed/${videos[currentIndex].id}`}
+                title={videos[currentIndex].title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+            <div className="mt-4 text-center">
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
+                {videos[currentIndex].title}
+              </h3>
+              <p className="text-sm text-gray-500 mt-1">
+                {currentIndex + 1} of {videos.length}
+              </p>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={goToPrevious}
+          className="absolute left-0 sm:-left-12 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 hover:scale-110 z-10 cursor-pointer"
+          aria-label="Previous video"
+        >
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+
+        <button
+          onClick={goToNext}
+          className="absolute right-0 sm:-right-12 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 hover:scale-110 z-10 cursor-pointer"
+          aria-label="Next video"
+        >
+          <svg
+            className="w-6 h-6 text-gray-700"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9 5l7 7-7 7"
+            />
+          </svg>
+        </button>
+      </div>
+    </motion.div>
+  );
+}
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-x-hidden">
@@ -518,100 +634,16 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 text-gray-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-gray-900 tracking-tight">
               Content Creation
             </h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed max-w-3xl mx-auto mb-4">
-              I use video for storytelling.
-            </p>
-            <p className="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
-              I move my audience through psychology, humor, and education.
+            <p className="text-xl sm:text-2xl md:text-3xl text-gray-800 leading-relaxed max-w-4xl mx-auto font-medium">
+              Do you need someone who can take your product updates and turn them into clear, professional videos that your customers can understand and act on?
             </p>
           </motion.div>
 
-          {/* Video Portfolio Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1], delay: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-          >
-            {/* Placeholder for video samples - you can replace these with actual video embeds or thumbnails */}
-            {/* Example structure - replace with your actual videos */}
-            {[
-              {
-                title: "Peerlist Narration",
-                category: "Narration Work",
-                thumbnail: "/videos/peerlist-thumb.jpg", // Replace with actual thumbnail
-                url: "https://youtube.com/watch?v=...", // Replace with actual URL
-              },
-              {
-                title: "Course Trailer",
-                category: "Course Trailer",
-                thumbnail: "/videos/course-trailer-thumb.jpg",
-                url: "https://youtube.com/watch?v=...",
-              },
-              {
-                title: "Sales Video",
-                category: "Sales Content",
-                thumbnail: "/videos/sales-thumb.jpg",
-                url: "https://youtube.com/watch?v=...",
-              },
-              {
-                title: "Short Form Content",
-                category: "Shorts",
-                thumbnail: "/videos/short-thumb.jpg",
-                url: "https://youtube.com/watch?v=...",
-              },
-              {
-                title: "Course Trailer 2",
-                category: "Course Trailer",
-                thumbnail: "/videos/course-trailer-2-thumb.jpg",
-                url: "https://youtube.com/watch?v=...",
-              },
-              {
-                title: "Sales Video 2",
-                category: "Sales Content",
-                thumbnail: "/videos/sales-2-thumb.jpg",
-                url: "https://youtube.com/watch?v=...",
-              },
-            ].map((video, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1], delay: 0.1 + index * 0.05 }}
-                className="group cursor-pointer"
-              >
-                <a
-                  href={video.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden mb-3 group-hover:shadow-xl transition-shadow duration-300">
-                    {/* Video thumbnail or embed preview */}
-                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-300 to-gray-400">
-                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                        <svg className="w-8 h-8 text-gray-700 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </div>
-                    </div>
-                    {/* You can replace the above div with an actual Image component or iframe embed */}
-                  </div>
-                  <div className="text-sm text-gray-500 mb-1">{video.category}</div>
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">
-                    {video.title}
-                  </h3>
-                </a>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Video Carousel */}
+          <VideoCarousel />
         </div>
       </section>
 
