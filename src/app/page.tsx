@@ -1,10 +1,8 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Technologies from "@/components/Technologies";
-import TeachingImpact from "@/components/TeachingImpact";
 
 // Type declaration for Crisp chat
 declare global {
@@ -115,122 +113,6 @@ function TestimonialsCarousel() {
   );
 }
 
-// Video Carousel Component
-function VideoCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const videos = [
-    {
-      id: "a3Jb5CO1iNs",
-      title: "Lesson from Roblox Studio for Beginners Course",
-    },
-    {
-      id: "cJYVUnE8gIM",
-      title: "#1 Create a new Firebase Project",
-    },
-    {
-      id: "0VPpdnocoHk",
-      title: "Daily Routine app in 5 mins",
-    },
-    {
-      id: "SdqrX5TEUQ4",
-      title: "Narration for Peerlist",
-    },
-  ];
-
-  const goToPrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? videos.length - 1 : prev - 1));
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prev) => (prev === videos.length - 1 ? 0 : prev + 1));
-  };
-
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeInUp}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-      className="relative"
-    >
-      {/* Video Container */}
-      <div className="relative max-w-4xl mx-auto">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentIndex}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-            className="relative"
-          >
-            <div className="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden shadow-2xl">
-              <iframe
-                src={`https://www.youtube.com/embed/${videos[currentIndex].id}`}
-                title={videos[currentIndex].title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </div>
-            <div className="mt-4 text-center">
-              <h3 className="text-lg sm:text-xl font-semibold text-gray-900">
-                {videos[currentIndex].title}
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">
-                {currentIndex + 1} of {videos.length}
-              </p>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Navigation Arrows */}
-        <button
-          onClick={goToPrevious}
-          className="absolute left-0 sm:-left-12 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 hover:scale-110 z-10 cursor-pointer"
-          aria-label="Previous video"
-        >
-          <svg
-            className="w-6 h-6 text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
-
-        <button
-          onClick={goToNext}
-          className="absolute right-0 sm:-right-12 top-1/2 -translate-y-1/2 w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white shadow-lg border border-gray-200 flex items-center justify-center hover:bg-gray-50 transition-all duration-200 hover:scale-110 z-10 cursor-pointer"
-          aria-label="Next video"
-        >
-          <svg
-            className="w-6 h-6 text-gray-700"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -250,7 +132,7 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return (
+              return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-x-hidden">
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
@@ -261,7 +143,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo/Image - Left aligned */}
-            <button
+                <button
               onClick={scrollToTop}
               className="flex items-center hover:opacity-80 transition-opacity duration-200 cursor-pointer p-2 sm:p-3"
               aria-label="Scroll to top"
@@ -280,10 +162,7 @@ export default function Home() {
             {/* Navigation Items - Right aligned */}
             <div className="flex items-center gap-5 sm:gap-7 md:gap-9">
               {[
-                { label: "About", href: "#intro" },
-                { label: "Technologies", href: "#technologies" },
-                { label: "Teaching", href: "#teaching" },
-                { label: "Content", href: "#content" },
+                { label: "About", href: "#about" },
               ].map((item) => (
                 <a
                   key={item.label}
@@ -340,8 +219,8 @@ export default function Home() {
 
             {/* Subtitle with better typography */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.15, ease: [0.6, -0.05, 0.01, 0.99] }}
               className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-200 font-semibold leading-[1.3] tracking-[-0.015em] mb-8 sm:mb-10 md:mb-12 whitespace-nowrap overflow-x-auto"
             >
@@ -349,9 +228,9 @@ export default function Home() {
             </motion.p>
 
             {/* CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
               className="flex justify-center"
             >
@@ -482,125 +361,10 @@ export default function Home() {
         <TestimonialsCarousel />
       </section>
 
-      {/* Intro Section */}
-      <section id="intro" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 relative overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-blue-200/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-200/10 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
-        
-        <div className="max-w-4xl mx-auto relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="text-center"
-          >
-            {/* Profile Picture */}
-            <motion.div
-              variants={fadeInUp}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              className="mb-4 sm:mb-6 flex justify-center"
-            >
-              <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32">
-                <Image
-                  src="/rafid-hoda.png"
-                  alt="Rafid Hoda"
-                  width={128}
-                  height={128}
-                  className="w-full h-full object-contain"
-                />
-              </div>
-            </motion.div>
-
-            <motion.p
-              variants={fadeInUp}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-3 sm:mb-4 text-gray-900 leading-[1.15] tracking-[-0.02em]"
-            >
-              Hey 👋 I&apos;m Rafid
-            </motion.p>
-
-            {/* Roles Badges */}
-            <motion.div
-              variants={fadeInUp}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              className="mb-4 sm:mb-6"
-            >
-              <div className="w-full grid grid-cols-2 md:flex md:flex-row md:justify-center items-center gap-3 sm:gap-4 max-w-3xl mx-auto">
-                {[
-                  { title: "Account Executive", bgColor: "bg-blue-100", textColor: "text-blue-700", borderColor: "border-blue-300", hoverBg: "hover:bg-blue-200" },
-                  { title: "Sales Engineer", bgColor: "bg-purple-100", textColor: "text-purple-700", borderColor: "border-purple-300", hoverBg: "hover:bg-purple-200" },
-                  { title: "Full-Stack Engineer", bgColor: "bg-indigo-100", textColor: "text-indigo-700", borderColor: "border-indigo-300", hoverBg: "hover:bg-indigo-200" },
-                  { title: "Video Producer", bgColor: "bg-pink-100", textColor: "text-pink-700", borderColor: "border-pink-300", hoverBg: "hover:bg-pink-200" },
-                  { title: "Teacher", bgColor: "bg-amber-100", textColor: "text-amber-700", borderColor: "border-amber-300", hoverBg: "hover:bg-amber-200" },
-                  { title: "Content Creator", bgColor: "bg-teal-100", textColor: "text-teal-700", borderColor: "border-teal-300", hoverBg: "hover:bg-teal-200" },
-                ].map((role, index) => (
-                  <div
-                    key={index}
-                    className={`
-                      ${role.bgColor} ${role.textColor} ${role.borderColor} ${role.hoverBg}
-                      px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3
-                      rounded-full
-                      border-2
-                      font-bold text-sm sm:text-base
-                      hover:shadow-lg hover:scale-105
-                      transition-all duration-300
-                      text-center
-                      whitespace-nowrap
-                    `}
-                  >
-                    {role.title}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-            
-            <motion.div
-              variants={fadeInUp}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              className="space-y-3 sm:space-y-4 text-base sm:text-lg md:text-xl text-gray-700 leading-[1.6] tracking-[-0.01em] font-medium"
-            >
-              <p>
-                I write, code, design, make videos, teach, and build tools and apps.
-              </p>
-              <p>
-                I like to spend a lot of time testing and trying to understand what to build.
-              </p>
-              <p className="pt-2 sm:pt-3 text-gray-900 font-semibold">
-                I&apos;m currently looking for companies interested in doing projects with me or hiring me full time.
-              </p>
-            </motion.div>
-          </motion.div>
-          
-          {/* Technologies Section */}
-          <div id="technologies">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInUp}
-              transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-              className="mt-6 sm:mt-8 md:mt-10"
-            >
-              <div className="max-w-7xl mx-auto">
-                <Technologies />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Teaching Impact Section */}
-      <div id="teaching">
-        <TeachingImpact />
-      </div>
-
-      {/* Content Creation Section */}
-      <section id="content" className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
-          {/* Header */}
+      {/* What I Can Do Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Title */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -609,16 +373,99 @@ export default function Home() {
             transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
             className="text-center mb-12 sm:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-gray-900 tracking-tight">
-              Content Creation
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 tracking-tight">
+              What I can do for your company
             </h2>
-            <p className="text-xl sm:text-2xl md:text-3xl text-gray-800 leading-relaxed max-w-4xl mx-auto font-medium">
-              Do you need someone who can take your product updates and turn them into clear, professional videos that your customers can understand and act on?
-            </p>
           </motion.div>
 
-          {/* Video Carousel */}
-          <VideoCarousel />
+          {/* Deliverables Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 mb-12 sm:mb-16">
+            {/* Deliverable #1 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeInUp}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Product Explanation Videos
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                  Clear, concise videos that explain your product&apos;s core concepts, features, and workflows. These videos reduce support load, speed up onboarding, and help every team speak the same language.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Deliverable #2 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeInUp}
+              transition={{ duration: 0.5, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Technical Walkthroughs and Demos
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                  Step-by-step demos that simplify complex workflows. Perfect for engineering handoffs, pre-sales, onboarding, and internal training.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Deliverable #3 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeInUp}
+              transition={{ duration: 0.5, delay: 0.3, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Customer Training Content
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                  Reusable training content that teaches customers how to use your product without needing one-on-one guidance.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Deliverable #4 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeInUp}
+              transition={{ duration: 0.5, delay: 0.4, ease: [0.4, 0, 0.2, 1] }}
+            >
+              <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full">
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
+                  Internal Enablement Videos
+                </h3>
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
+                  Short videos that help Sales, Support, and Success teams understand the product deeply, so they can deliver value without relying on engineers.
+                </p>
+                </div>
+              </motion.div>
+          </div>
+
+          {/* Bottom Paragraph */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, delay: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            className="text-center max-w-4xl mx-auto"
+          >
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-700 leading-relaxed">
+              Most teams waste hours repeating the same explanation across Sales, Support, Engineering, and Success. I help you explain your product once, clearly, in a format that scales across the entire organization.
+            </p>
+          </motion.div>
         </div>
       </section>
 
