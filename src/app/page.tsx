@@ -15,53 +15,32 @@ declare global {
 
 const recommendations = [
   {
-    name: "Per Borgen",
-    role: "CEO and co-founder",
-    company: "Scrimba",
-    image: "/recommenders/per-borgen.jpeg",
-    text: "Rafid has a rare mix of technical, design, and communication skills that let him tackle projects most teams need several people for. His courses were polished, fun, and full of storytelling and humor — always delivered with a smile.",
-  },
-  {
-    name: "Maria Mitsos",
-    role: "Customer Success Manager",
-    company: "SalesScreen",
-    image: "/recommenders/maria-mitsos.jpeg",
-    text: "Rafid always finds a solution and takes time to communicate clearly. He simplifies complex needs so everyone leaves confident the job's done — a solid teammate and a pleasure to work with. His calm, thoughtful approach makes collaboration effortless.",
-  },
-  {
-    name: "Harry Hindess",
-    role: "Account Executive",
-    company: "SalesScreen",
-    image: "/recommenders/harry-hindess.jpeg",
-    text: "Rafid makes complex ideas simple for customers and helps move deals forward with clarity and confidence. From pre-sales calls to full integrations, he's thorough, professional, and a true partner in closing business.",
-  },
-  {
     name: "Øystein Heimark",
-    role: "CTO & Co-founder",
+    role: "CTO",
     company: "SalesScreen",
     image: "/recommenders/oystein-heimark.jpeg",
-    text: "Rafid bridges the gap between customers and engineering with rare technical depth and clear communication. He uncovers challenges, finds creative solutions, and explains complex problems in simple, human terms. His teaching background shines through in every interaction, making him invaluable to both clients and colleagues.",
+    text: "Rafid combines deep technical understanding with exceptional communication. He was the bridge between customers and engineering, always explaining even the most complex problems in simple terms. His video walkthroughs and documentation made it easy for both internal teams and customers to understand and adopt the platform.",
+  },
+  {
+    name: "Per Borgen",
+    role: "CEO",
+    company: "Scrimba",
+    image: "/recommenders/per-borgen.jpeg",
+    text: "Rafid has a rare mix of technical skill, design sense, and communication ability. He produces videos and explanations that most companies would need an entire team for. Everything he creates is polished, clear, and pedagogically strong, turning complex concepts into something fun and easy to understand.",
   },
   {
     name: "Sindre Haaland",
-    role: "CEO & Co-founder",
+    role: "CEO",
     company: "SalesScreen",
     image: "/recommenders/sindre-haaland.jpeg",
-    text: "Rafid is passionate about understanding customer needs and solving complex problems. His unique ability to simplify and explain through video made him a go-to problem solver, earning praise from colleagues and customers alike for turning tough integrations into clear, workable solutions.",
+    text: "Rafid has a unique ability to simplify and explain complex problems through video. His work helped our customers and internal teams understand difficult concepts faster, and he consistently received internal praise for the clarity of his explanations.",
   },
   {
-    name: "Arwa Ahmed Mawlod",
-    role: "Petroleum Engineer",
-    company: "ADNOC",
-    image: "/recommenders/arwa-ahmed-mawlod.jpeg",
-    text: "Rafid was amazing with my daughter, Layan — patient, creative, and made coding in Roblox Studio fun and easy to understand. She stayed engaged and inspired the entire session. His kindness, encouragement, and personal touch truly make him a rare teacher who turns learning into an adventure.",
-  },
-  {
-    name: "Divv Saxena",
-    role: "Founding Engineer",
-    company: "AI Collective",
-    image: "/recommenders/divv-saxena.jpeg",
-    text: "If there is one person who fundamentally changed the way I think, build, and operate it's Rafid. He didn't just teach code or game design. He taught a way of thinking — how to stay curious, how to build relentlessly, how to treat learning as a lifelong habit instead of a phase. The biggest shift for me came from how he pushed us to create, reflect, and improve continuously. He leads with kindness, clarity, and high expectations. He believes in you before you even believe in yourself. Anyone who gets to learn from or work with Rafid is genuinely lucky. He doesn't just teach skills — he shapes how you think, and that stays with you forever.",
+    name: "Harry Hindess",
+    role: "Sales Manager",
+    company: "",
+    image: "/recommenders/harry-hindess.jpeg",
+    text: "Rafid is an excellent communicator with a natural ability to simplify complex problems for customers. Across multiple customer projects, he was thorough, professional, and consistently delivered a fantastic experience by making technical ideas easy to understand.",
   },
 ];
 
@@ -92,32 +71,17 @@ const heroQuotes = recommendations.map((rec) => {
 });
 
 function TestimonialsCarousel() {
-  const cardWidth = 400;
-  const gap = 24;
-  const totalWidth = heroQuotes.length * (cardWidth + gap);
-
   return (
-    <div className="relative w-full overflow-hidden" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)' }}>
-      {/* Auto-scrolling testimonials */}
-      <motion.div
-        className="flex gap-6"
-        animate={{
-          x: [0, -totalWidth],
-        }}
-        transition={{
-          x: {
-            repeat: Infinity,
-            repeatType: "loop",
-            duration: 60, // Very slow - 60 seconds for full cycle
-            ease: "linear",
-          },
-        }}
-      >
-        {/* Duplicate testimonials for seamless loop */}
-        {[...heroQuotes, ...heroQuotes].map((quote, index) => (
-          <div
-            key={`${quote.name}-${index}`}
-            className="flex-shrink-0 w-[85vw] sm:w-[380px] md:w-[400px]"
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+        {heroQuotes.map((quote, index) => (
+          <motion.div
+            key={quote.name}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.5, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
           >
             <div className="bg-white rounded-2xl p-6 sm:p-7 md:p-8 shadow-xl border border-gray-200 h-full flex flex-col">
               {/* Author Info - Above Quote */}
@@ -134,21 +98,19 @@ function TestimonialsCarousel() {
                 <div className="text-center">
                   <p className="font-bold text-gray-900 text-sm sm:text-base md:text-lg mb-1">{quote.name}</p>
                   <p className="text-xs sm:text-sm text-gray-600 font-medium">
-                    {quote.role} at {quote.company}
+                    {quote.role}{quote.company ? ` at ${quote.company}` : ''}
                   </p>
                 </div>
               </div>
 
               {/* Quote */}
-              <blockquote className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 leading-[1.4] tracking-[-0.01em] text-center flex-grow flex items-center">
-                &quot;{quote.preview}
-                {quote.preview !== quote.fullText && <span className="opacity-60">...</span>}
-                &quot;
+              <blockquote className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 leading-[1.4] tracking-[-0.01em] text-left flex-grow flex items-center">
+                {quote.fullText}
               </blockquote>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
