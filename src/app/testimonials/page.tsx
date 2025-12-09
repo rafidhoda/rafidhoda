@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
 
 // Type declaration for Crisp chat
 declare global {
@@ -108,88 +109,15 @@ const fadeInUp = {
   }
 };
 
-function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/95 border-gray-200/80 shadow-sm' 
-        : 'bg-transparent border-transparent'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center h-16 sm:h-20">
-          <div className="flex items-center gap-5 sm:gap-7 md:gap-9">
-            {[
-              { label: "Home", href: "/" },
-              { label: "CV", href: "#" },
-              { label: "Courses", href: "#" },
-              { label: "Contact", href: "#" },
-            ].map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`text-base sm:text-lg md:text-xl font-medium transition-colors duration-200 relative group ${
-                  isScrolled 
-                    ? 'text-gray-700 hover:text-gray-900' 
-                    : 'text-gray-100 hover:text-white'
-                }`}
-              >
-                {item.label}
-                <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 ${
-                  isScrolled ? 'bg-gray-900' : 'bg-white'
-                } group-hover:w-full`} />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-}
-
 export default function TestimonialsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-x-hidden">
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[40vh] flex items-center justify-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-blue-900/20 via-purple-900/30 to-pink-900/20 pointer-events-none" />
-        
-        <div className="relative z-10 max-w-7xl mx-auto w-full text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.6, -0.05, 0.01, 0.99] }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 tracking-[-0.04em] leading-[0.9]"
-          >
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
-                Testimonials
-              </span>
-            </span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.6, -0.05, 0.01, 0.99] }}
-            className="text-lg sm:text-xl md:text-2xl text-gray-200 font-medium"
-          >
-            What people say about working with me
-          </motion.p>
-        </div>
-      </section>
+      <Hero 
+        pageTitle="Testimonials"
+        subtitle="What people say about working with me"
+      />
 
       {/* Testimonials Grid */}
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-gray-50 to-slate-50 relative overflow-hidden">

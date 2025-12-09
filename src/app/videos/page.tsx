@@ -1,9 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
 
 // Type declaration for Crisp chat
 declare global {
@@ -111,137 +112,14 @@ function TestimonialsCarousel() {
 }
 
 export default function VideosPage() {
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      // Hero section is approximately 85-90vh, so transition around 70vh
-      const heroHeight = window.innerHeight * 0.85;
-      setIsScrolled(scrollPosition > heroHeight * 0.8);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-              return (
+  return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 overflow-x-hidden">
-      {/* Navbar */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/95 border-gray-200/80 shadow-sm' 
-          : 'bg-transparent border-transparent'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center h-16 sm:h-20">
-            {/* Navigation Items - Centered */}
-            <div className="flex items-center gap-5 sm:gap-7 md:gap-9">
-              {[
-                { label: "Home", href: "/" },
-                { label: "Videos", href: "/videos" },
-                { label: "CV", href: "#" },
-                { label: "Courses", href: "#" },
-                { label: "Contact", href: "#" },
-              ].map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`text-base sm:text-lg md:text-xl font-medium transition-colors duration-200 relative group ${
-                    isScrolled 
-                      ? 'text-gray-700 hover:text-gray-900' 
-                      : 'text-gray-100 hover:text-white'
-                  }`}
-                >
-                  {item.label}
-                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 ${
-                    isScrolled ? 'bg-gray-900' : 'bg-white'
-                  } group-hover:w-full`} />
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] sm:min-h-[65vh] flex items-center justify-center px-4 sm:px-6 pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-16 md:pb-20 overflow-hidden bg-gradient-to-br from-gray-900 via-slate-900 to-gray-900">
-        {/* Enhanced background with depth */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900/50 via-blue-900/20 via-purple-900/30 to-pink-900/20 pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(120,119,198,0.2),transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(251,146,60,0.15),transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(139,92,246,0.1),transparent_70%)] pointer-events-none" />
-        
-        {/* Animated grid pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
-        
-        <div className="relative z-10 max-w-7xl mx-auto w-full">
-          <div className="text-center">
-            {/* Name with enhanced styling */}
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold mb-4 sm:mb-6 tracking-[-0.04em] leading-[0.9]"
-            >
-              <span className="relative inline-block">
-                <span className="bg-gradient-to-r from-blue-400 via-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent drop-shadow-2xl">
-                  Rafid Hoda
-                </span>
-                {/* Subtle glow effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-blue-400/30 via-purple-400/30 via-pink-400/30 to-orange-400/30 blur-2xl -z-10" />
-              </span>
-            </motion.h1>
-
-            {/* Subtitle with better typography */}
-            <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-200 font-semibold leading-[1.3] tracking-[-0.015em] mb-8 sm:mb-10 md:mb-12 whitespace-nowrap overflow-x-auto"
-            >
-              I create product videos that save your team thousands of explanations
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
-            >
-              <button
-                onClick={() => {
-                  if (typeof window !== 'undefined' && window.$crisp) {
-                    window.$crisp.push(['do', 'chat:open']);
-                  }
-                }}
-                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 cursor-pointer"
-              >
-                Chat with me now
-              </button>
-              <a
-                href="https://cal.com/rafidhoda/20-minute-intro-call"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:bg-white/20 hover:scale-105 transition-all duration-300 cursor-pointer"
-              >
-                Book a 20-min call
-              </a>
-            </motion.div>
-          </div>
-
-
-        </div>
-      </section>
+      <Hero 
+        pageTitle="Videos"
+        subtitle="I create product videos that save your team thousands of explanations"
+      />
 
       {/* 20 Years of Technical Videos Section */}
       <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
