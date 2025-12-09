@@ -410,6 +410,96 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 20 Years of Technical Videos Section */}
+      <section className="py-16 sm:py-20 md:py-24 px-4 sm:px-6 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+            className="text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 sm:mb-8 text-gray-900 tracking-tight whitespace-nowrap">
+              I&apos;ve been making technical videos for 20 years.
+            </h2>
+            
+            <div className="space-y-4 sm:space-y-5 text-lg sm:text-xl md:text-2xl lg:text-2xl text-gray-700 leading-relaxed text-left">
+              <p>
+                When I was 14, I created a{' '}
+                <a
+                  href="https://www.youtube.com/watch?v=8R360sP1zHs"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  coding tutorial
+                </a>
+                {' '}called Slice and Code a Website. It went viral before YouTube even existed. It became so popular that 15,000 people tried to watch it in one month and it crashed my server.
+              </p>
+              
+              <p>
+                Since then, I&apos;ve taught thousands of people through{' '}
+                <a
+                  href="https://www.coursera.org/instructor/~140543294"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  Coursera
+                </a>
+                {', '}
+                <a
+                  href="https://www.youtube.com/watch?v=UFD4SP91tSM"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  freeCodeCamp
+                </a>
+                {', '}
+                <a
+                  href="https://scrimba.com/build-a-mobile-app-with-firebase-c0g"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  Scrimba
+                </a>
+                {', '}
+                <a
+                  href="https://www.udemy.com/course/roblox-studio-for-beginners"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  Udemy
+                </a>
+                {', and '}
+                <a
+                  href="https://www.utdannet.no/kurs/roblox-studio-for-nybegynnere"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                >
+                  utdannet.no
+                </a>
+                . I&apos;ve used video to make life easier for Sales, Support, Engineering, and Product teams. I even built a video-based job-hunting framework that gets a 70% reply rate (industry average is 2 percent).
+              </p>
+              
+              <p>
+                If something is complicated, there is a good chance I&apos;ve already made a video that makes everyone&apos;s life easier.
+              </p>
+
+              <p>
+                Today, I help companies explain their product once, in a way that scales to customers, teams, and partners forever.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* What People Are Saying Section */}
       <section className="py-16 sm:py-20 md:py-24 px-0 bg-white">
         <div className="mb-10 sm:mb-12 md:mb-16 px-4 sm:px-6">
