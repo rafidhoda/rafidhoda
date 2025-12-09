@@ -40,6 +40,23 @@ export default function RootLayout({
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
+        <Script
+          id="crisp-chat"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.$crisp=[];
+              window.CRISP_WEBSITE_ID="9e5697fe-a09d-46af-aee1-acc5a3842f6d";
+              (function(){
+                d=document;
+                s=d.createElement("script");
+                s.src="https://client.crisp.chat/l.js";
+                s.async=1;
+                d.getElementsByTagName("head")[0].appendChild(s);
+              })();
+            `,
+          }}
+        />
       </head>
       <body
         className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} antialiased overflow-x-hidden`}

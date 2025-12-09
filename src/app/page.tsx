@@ -6,6 +6,13 @@ import Image from "next/image";
 import Technologies from "@/components/Technologies";
 import TeachingImpact from "@/components/TeachingImpact";
 
+// Type declaration for Crisp chat
+declare global {
+  interface Window {
+    $crisp?: Array<any>;
+  }
+}
+
 const recommendations = [
   {
     name: "Per Borgen",
@@ -374,10 +381,29 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.15, ease: [0.6, -0.05, 0.01, 0.99] }}
-              className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-200 font-semibold leading-[1.3] tracking-[-0.015em] max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-2xl text-gray-200 font-semibold leading-[1.3] tracking-[-0.015em] mb-8 sm:mb-10 md:mb-12 whitespace-nowrap overflow-x-auto"
             >
-              The Seller. The Builder. The Teacher. The Storyteller.
+              I create product videos that save your team thousands of explanations
             </motion.p>
+
+            {/* CTA Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
+              className="flex justify-center"
+            >
+              <button
+                onClick={() => {
+                  if (typeof window !== 'undefined' && window.$crisp) {
+                    window.$crisp.push(['do', 'chat:open']);
+                  }
+                }}
+                className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 cursor-pointer"
+              >
+                Chat with me now
+              </button>
+            </motion.div>
           </div>
 
 
