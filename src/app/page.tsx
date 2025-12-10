@@ -29,7 +29,7 @@ export default function Home() {
 
       <Hero 
         pageTitle="Home"
-        subtitle="The Seller. The Builder. The Teacher. The Storyteller."
+        subtitle="I turn complex technology into clear, scalable explanations"
         isHomePage={true}
       />
 
