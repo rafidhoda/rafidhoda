@@ -1,10 +1,7 @@
 import Link from "next/link";
 
 const navItems = [
-  { label: "Ideas", href: "#" },
-  { label: "Reminders", href: "#" },
-  { label: "Guides", href: "#" },
-  { label: "Admin", href: "#" },
+  { label: "Reminders", href: "/reminders" },
   { label: "Movies", href: "/movies" },
 ];
 
@@ -19,7 +16,7 @@ export default function GlobalMenu() {
             href="/"
             className="text-sm font-semibold tracking-tight text-white hover:text-orange-300 transition-colors"
           >
-            rafidhoda.com
+            Rafid Hoda
           </Link>
           <div className="flex items-center gap-2 text-sm text-zinc-400">
             {navItems.map((item) => (
