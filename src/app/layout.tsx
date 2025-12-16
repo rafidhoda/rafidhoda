@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import GlobalMenu from "@/components/GlobalMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,8 +60,9 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${plusJakartaSans.variable} ${geistMono.variable} antialiased overflow-x-hidden`}
+        className={`${geistSans.variable} ${plusJakartaSans.variable} ${geistMono.variable} antialiased overflow-x-hidden bg-black text-white`}
       >
+        <GlobalMenu />
         {children}
       </body>
     </html>
