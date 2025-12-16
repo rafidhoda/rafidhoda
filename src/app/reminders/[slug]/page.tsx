@@ -53,7 +53,6 @@ export default async function ReminderDetail({ params }: { params: Promise<{ slu
 
           <div className="space-y-4">
             <div className="space-y-3">
-              <h2 className="text-sm uppercase tracking-[0.2em] text-zinc-500">Reminder to myself</h2>
               <div className="text-lg sm:text-xl text-zinc-100 leading-relaxed whitespace-pre-line">
                 {reminder.body}
               </div>
