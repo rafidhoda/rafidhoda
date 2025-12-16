@@ -93,16 +93,12 @@ export default function Hero({ pageTitle, subtitle, isHomePage = false }: HeroPr
             transition={{ duration: 0.9, delay: 0.3, ease: [0.6, -0.05, 0.01, 0.99] }}
             className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-6"
           >
-            <button
-              onClick={() => {
-                if (typeof window !== 'undefined' && window.$crisp) {
-                  window.$crisp.push(['do', 'chat:open']);
-                }
-              }}
+            <a
+              href="mailto:hello@rafidhoda.com"
               className="inline-block px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-6 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-bold text-lg sm:text-xl md:text-2xl rounded-full shadow-2xl hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 cursor-pointer"
             >
-              Chat with me now
-            </button>
+              Email me
+            </a>
             <a
               href="https://cal.com/rafidhoda/20-minute-intro-call"
               target="_blank"
