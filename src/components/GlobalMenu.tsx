@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const navItems = [
+  { label: "Clips", href: "/clips" },
   { label: "Reminders", href: "/reminders" },
   { label: "Movies", href: "/movies" },
 ];
