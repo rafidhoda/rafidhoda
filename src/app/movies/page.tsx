@@ -1,4 +1,4 @@
-import Image from "next/image";
+import MoviesClient from "./MoviesClient";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -194,87 +194,20 @@ const enrichMovies = async () => {
   return { hasToken, movies };
 };
 
-const shell = "mx-auto w-full max-w-6xl px-4 sm:px-6";
-
 export default async function MoviesPage() {
-  const { hasToken, movies } = await enrichMovies();
+  const { movies } = await enrichMovies();
 
-  return (
-    <div className="min-h-screen bg-black text-white py-10">
-      <div className={`${shell} space-y-8`}>
-        <header className="flex flex-col gap-3">
-          <div className="flex items-center gap-2 text-sm text-orange-200/80">
-            <span className="h-2 w-2 rounded-full bg-orange-400" />
-            <span>rafidhoda.com · Movies</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight">
-            My favorite 100 movies
-          </h1>
-          <p className="text-lg text-zinc-300 max-w-3xl">
-            These movies are more than just movies for me. They have shaped me as a human being. There are
-            some movies on this list I have watched over 10 times. I hope you find something here that you'll
-            like.
-          </p>
-          {!hasToken && (
-            <p className="text-sm text-orange-300 bg-orange-500/10 border border-orange-500/30 rounded-lg px-3 py-2 inline-flex items-center gap-2">
-              TMDB token not detected. Add TMDB_READ_TOKEN to show posters and overviews.
-            </p>
-          )}
-        </header>
+  const clientMovies = movies.map((movie: any) => {
+    const tmdb = movie.tmdb as TMDBMovie | null;
+    return {
+      rank: movie.rank,
+      title: tmdb?.title || tmdb?.name || movie.title,
+      year: movie.year ?? tmdb?.release_date?.slice(0, 4) ?? "----",
+      overview: tmdb?.overview || null,
+      poster: tmdb?.poster_path ? `${TMDB_IMG}${tmdb.poster_path}` : null,
+    };
+  });
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {movies.map((movie) => {
-            const tmdb = (movie as any).tmdb as TMDBMovie | null;
-            const poster = tmdb?.poster_path ? `${TMDB_IMG}${tmdb.poster_path}` : null;
-            const year = movie.year ?? tmdb?.release_date?.slice(0, 4) ?? "----";
-
-            return (
-              <div
-                key={movie.rank}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col"
-              >
-                {poster ? (
-                  <div className="relative aspect-[2/3] w-full">
-                    <Image
-                      src={poster}
-                      alt={tmdb?.title || movie.title}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      priority={movie.rank <= 12}
-                    />
-                    <div className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
-                      #{movie.rank}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="aspect-[2/3] w-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative">
-                    <span className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
-                      #{movie.rank}
-                    </span>
-                    No poster
-                  </div>
-                )}
-
-                <div className="p-4 flex flex-col gap-3 flex-1">
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{year}</p>
-                      <h3 className="text-lg font-semibold text-white leading-tight">
-                        {tmdb?.title || movie.title}
-                      </h3>
-                    </div>
-                  </div>
-                  <p className="text-sm text-zinc-300 leading-relaxed line-clamp-4">
-                    {tmdb?.overview || "Overview pending TMDB lookup."}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </section>
-      </div>
-    </div>
-  );
+  return <MoviesClient movies={clientMovies} />;
 }
 
