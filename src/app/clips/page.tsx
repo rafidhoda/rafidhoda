@@ -34,12 +34,7 @@ export default function ClipsPage() {
                   <div />
                 )}
               </div>
-              <h2 className="text-xl font-semibold text-white mb-2">{clip.title}</h2>
-              {clip.summary ? (
-                <p className="text-sm text-zinc-300 line-clamp-3 whitespace-pre-line">{clip.summary}</p>
-              ) : (
-                <p className="text-sm text-zinc-500">Open to listen and read the take.</p>
-              )}
+              <h2 className="text-2xl font-semibold text-white mb-1 leading-tight">{clip.title}</h2>
             </Link>
           ))}
         </div>
