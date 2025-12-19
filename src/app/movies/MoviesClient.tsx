@@ -17,6 +17,7 @@ const LS_KEY = "rafid_movies_seen";
 export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
   const [seen, setSeen] = useState<Set<number>>(new Set());
   const [hideSeen, setHideSeen] = useState(true);
+  const [view, setView] = useState<"grid" | "list">("grid");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -79,6 +80,20 @@ export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
             >
               {hideSeen ? "Showing unseen only" : "Showing all"}
             </button>
+            <div className="inline-flex rounded-lg border border-zinc-800 bg-zinc-900/70 p-1 text-sm">
+              <button
+                onClick={() => setView("grid")}
+                className={`px-3 py-1 rounded-md transition-colors ${view === "grid" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"}`}
+              >
+                Grid
+              </button>
+              <button
+                onClick={() => setView("list")}
+                className={`px-3 py-1 rounded-md transition-colors ${view === "list" ? "bg-zinc-800 text-white" : "text-zinc-400 hover:text-white"}`}
+              >
+                List
+              </button>
+            </div>
             <span className="text-zinc-500">Unseen: {unseenCount} · Seen: {seen.size}</span>
             <button
               className="text-orange-200 hover:text-orange-100 text-sm underline underline-offset-4 cursor-pointer"
@@ -93,55 +108,71 @@ export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
           </div>
         </header>
 
-        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.map((movie) => (
-            <div
-              key={movie.rank}
-              onClick={() => toggleSeen(movie.rank)}
-              className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col cursor-pointer transition-colors hover:border-orange-400/50"
-            >
-              {movie.poster ? (
-                <div className="relative aspect-[2/3] w-full">
-                  <Image
-                    src={movie.poster}
-                    alt={movie.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={movie.rank <= 12}
-                  />
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
-                    #{movie.rank}
+        <section className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
+          {filtered.map((movie) => {
+            const CardInner = (
+              <>
+                {movie.poster ? (
+                  <div className={view === "grid" ? "relative aspect-[2/3] w-full" : "relative w-full h-64"}>
+                    <Image
+                      src={movie.poster}
+                      alt={movie.title}
+                      fill
+                      className="object-cover"
+                      sizes={view === "grid" ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : "100vw"}
+                      priority={movie.rank <= 12}
+                    />
+                    <div className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
+                      #{movie.rank}
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div className="aspect-[2/3] w-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative">
-                  <span className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
-                    #{movie.rank}
-                  </span>
-                  No poster
-                </div>
-              )}
-
-              <div className="p-4 flex flex-col gap-3 flex-1">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{movie.year}</p>
-                    <h3 className="text-lg font-semibold text-white leading-tight">{movie.title}</h3>
-                  </div>
-                  {seen.has(movie.rank) && (
-                    <span className="text-xs font-semibold text-green-300 bg-green-900/40 border border-green-800 px-2 py-1 rounded-full">
-                      Seen
+                ) : (
+                  <div className={view === "grid" ? "aspect-[2/3] w-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative" : "w-full h-64 bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative"}>
+                    <span className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
+                      #{movie.rank}
                     </span>
-                  )}
+                    No poster
+                  </div>
+                )}
+
+                <div className="p-4 flex flex-col gap-3 flex-1">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{movie.year}</p>
+                      <h3 className="text-lg font-semibold text-white leading-tight">{movie.title}</h3>
+                    </div>
+                    {seen.has(movie.rank) && (
+                      <span className="text-xs font-semibold text-green-300 bg-green-900/40 border border-green-800 px-2 py-1 rounded-full">
+                        Seen
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-zinc-300 leading-relaxed line-clamp-4">
+                    {movie.overview || "Overview pending TMDB lookup."}
+                  </p>
+                  <p className="text-xs text-zinc-500">Tap to toggle seen</p>
                 </div>
-                <p className="text-sm text-zinc-300 leading-relaxed line-clamp-4">
-                  {movie.overview || "Overview pending TMDB lookup."}
-                </p>
-                <p className="text-xs text-zinc-500">Tap to toggle seen</p>
+              </>
+            );
+
+            return view === "grid" ? (
+              <div
+                key={movie.rank}
+                onClick={() => toggleSeen(movie.rank)}
+                className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col cursor-pointer transition-colors hover:border-orange-400/50"
+              >
+                {CardInner}
               </div>
-            </div>
-          ))}
+            ) : (
+              <div
+                key={movie.rank}
+                onClick={() => toggleSeen(movie.rank)}
+                className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col cursor-pointer transition-colors hover:border-orange-400/50"
+              >
+                {CardInner}
+              </div>
+            );
+          })}
         </section>
       </div>
     </div>
