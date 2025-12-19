@@ -20,6 +20,8 @@ export default function AskPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const voterRef = useRef<Set<string>>(new Set());
+  const modToken = process.env.NEXT_PUBLIC_MOD_TOKEN;
+  const modName = process.env.NEXT_PUBLIC_MOD_NAME || "Moderator";
 
   const approved = useMemo(
     () => [...questions].sort((a, b) => b.votes - a.votes || b.createdAt - a.createdAt),
@@ -65,11 +67,15 @@ export default function AskPage() {
       return;
     }
 
+    const trimmedName = name.trim();
+    const isMod = !!modToken && trimmedName === modToken;
+    const authorToSave = isMod ? modName : trimmedName || null;
+
     setStatus("submitting");
     const { error: err } = await supabase.from("questions").insert({
       body: content.trim(),
-      author: name.trim() || null,
-      approved: false,
+      author: authorToSave,
+      approved: isMod,
     });
 
     if (err) {
