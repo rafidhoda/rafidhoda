@@ -91,19 +91,19 @@ export default function GlobalMenu() {
       </div>
 
       {isMobileOpen && (
-        <div className="md:hidden fixed inset-0 z-30 bg-black/90 backdrop-blur">
+        <div className="md:hidden fixed inset-0 z-40 bg-black/95 backdrop-blur-sm">
           <div className={`${shell} pt-24 pb-10`}>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3">
               {navItems.map((item) => {
                 const active = pathname === item.href;
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className={`w-full rounded-xl border px-4 py-3 text-base font-medium transition-colors ${
+                    className={`w-full rounded-xl border px-4 py-3.5 text-base font-medium transition-colors ${
                       active
                         ? "border-zinc-700 bg-zinc-800 text-white"
-                        : "border-zinc-800 bg-zinc-900/70 text-zinc-300 hover:text-white hover:border-zinc-700"
+                        : "border-zinc-800 bg-zinc-900/80 text-zinc-200 hover:text-white hover:border-zinc-700"
                     }`}
                   >
                     {item.label}
