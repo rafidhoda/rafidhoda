@@ -1,12 +1,8 @@
 "use client";
 
-import Navbar from "@/components/Navbar";
-
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
-
       {/* Contact Section */}
       <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 py-20">
         <div className="max-w-4xl mx-auto">

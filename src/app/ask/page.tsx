@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Navbar from "@/components/Navbar";
 import { supabase } from "@/lib/supabaseClient";
 
 type Question = {
@@ -129,8 +128,6 @@ export default function AskPage() {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <Navbar />
-
       <main className="mx-auto w-full max-w-5xl px-4 sm:px-6 py-12 space-y-8">
         <div className="space-y-4">
           <p className="text-xs uppercase tracking-[0.22em] text-orange-200/80">Ask</p>
@@ -218,3 +215,4 @@ export default function AskPage() {
     </div>
   );
 }
+
