@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRef } from "react";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -18,6 +19,7 @@ export default function GlobalMenu() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const ignoreScrollUntil = useRef(0);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -25,22 +27,31 @@ export default function GlobalMenu() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // When opening the mobile menu from lower down the page, snap to top so the menu is visible.
   useEffect(() => {
-    if (isMobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    if (isMobileOpen && typeof window !== "undefined") {
+      ignoreScrollUntil.current = Date.now() + 800;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    return () => {
-      document.body.style.overflow = "";
+  }, [isMobileOpen]);
+
+  // Auto-close mobile menu on scroll after it is opened
+  useEffect(() => {
+    if (!isMobileOpen) return;
+    const handleScrollClose = () => {
+      if (Date.now() < ignoreScrollUntil.current) return;
+      setIsMobileOpen(false);
     };
+    window.addEventListener("scroll", handleScrollClose, { passive: true });
+    return () => window.removeEventListener("scroll", handleScrollClose);
   }, [isMobileOpen]);
 
   useEffect(() => {
     setIsMobileOpen(false);
   }, [pathname]);
 
-  const bgClasses = isScrolled ? "bg-black/80 border border-zinc-800" : "bg-zinc-900/60 border border-zinc-800";
+  const bgClasses =
+    isScrolled || isMobileOpen ? "bg-black/90 border border-zinc-800" : "bg-zinc-900/60 border border-zinc-800";
 
   return (
     <div className="sticky top-0 z-40 backdrop-blur-md">
@@ -74,7 +85,7 @@ export default function GlobalMenu() {
 
           <button
             onClick={() => setIsMobileOpen((v) => !v)}
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/70 text-white"
+            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 rounded-lg border border-zinc-800 bg-zinc-900/90 text-white"
             aria-label="Toggle menu"
           >
             <span
@@ -91,26 +102,25 @@ export default function GlobalMenu() {
       </div>
 
       {isMobileOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black/95 backdrop-blur-sm">
-          <div className={`${shell} pt-24 pb-10`}>
-            <div className="flex flex-col gap-3">
-              {navItems.map((item) => {
-                const active = pathname === item.href;
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={`w-full rounded-xl border px-4 py-3.5 text-base font-medium transition-colors ${
-                      active
-                        ? "border-zinc-700 bg-zinc-800 text-white"
-                        : "border-zinc-800 bg-zinc-900/80 text-zinc-200 hover:text-white hover:border-zinc-700"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
+        <div className="md:hidden px-4 pb-4">
+          <div className="space-y-2">
+            {navItems.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileOpen(false)}
+                  className={`block w-full rounded-xl border px-4 py-3 text-base font-medium transition-colors ${
+                    active
+                      ? "border-zinc-700 bg-zinc-800 text-white"
+                      : "border-zinc-800 bg-zinc-900 text-zinc-200 hover:text-white hover:border-zinc-700"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
