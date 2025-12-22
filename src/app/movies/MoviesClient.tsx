@@ -110,16 +110,16 @@ export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
 
         <section className={view === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "space-y-4"}>
           {filtered.map((movie) => {
-            const CardInner = (
+            const CardGrid = (
               <>
                 {movie.poster ? (
-                  <div className={view === "grid" ? "relative aspect-[2/3] w-full" : "relative w-full h-64"}>
+                  <div className="relative aspect-[2/3] w-full">
                     <Image
                       src={movie.poster}
                       alt={movie.title}
                       fill
                       className="object-cover"
-                      sizes={view === "grid" ? "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" : "100vw"}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       priority={movie.rank <= 12}
                     />
                     <div className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
@@ -127,7 +127,7 @@ export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
                     </div>
                   </div>
                 ) : (
-                  <div className={view === "grid" ? "aspect-[2/3] w-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative" : "w-full h-64 bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative"}>
+                  <div className="aspect-[2/3] w-full bg-zinc-800 flex items-center justify-center text-zinc-600 text-sm relative">
                     <span className="absolute top-2 left-2 bg-black/70 text-white text-sm md:text-base px-2.5 py-1 rounded-full border border-zinc-800 font-semibold">
                       #{movie.rank}
                     </span>
@@ -155,21 +155,67 @@ export default function MoviesClient({ movies }: { movies: ClientMovie[] }) {
               </>
             );
 
+            const CardList = (
+              <div className="flex gap-4 p-3 sm:p-4 items-stretch">
+                <div className="relative w-24 sm:w-28 h-40 sm:h-44 flex-shrink-0">
+                  {movie.poster ? (
+                    <>
+                      <Image
+                        src={movie.poster}
+                        alt={movie.title}
+                        fill
+                        className="object-cover rounded-lg"
+                        sizes="120px"
+                        priority={movie.rank <= 12}
+                      />
+                      <div className="absolute top-2 left-2 bg-black/80 text-white text-xs px-2 py-1 rounded-full border border-zinc-800 font-semibold">
+                        #{movie.rank}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="w-full h-full rounded-lg bg-zinc-800 flex items-center justify-center text-zinc-500 text-xs relative">
+                      <span className="absolute top-2 left-2 bg-black/80 text-white text-xs px-2 py-1 rounded-full border border-zinc-800 font-semibold">
+                        #{movie.rank}
+                      </span>
+                      No poster
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 flex flex-col gap-2 justify-between">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="space-y-1">
+                      <p className="text-[11px] uppercase tracking-[0.2em] text-zinc-500">{movie.year}</p>
+                      <h3 className="text-lg font-semibold text-white leading-tight">{movie.title}</h3>
+                    </div>
+                    {seen.has(movie.rank) && (
+                      <span className="text-[11px] font-semibold text-green-300 bg-green-900/40 border border-green-800 px-2 py-1 rounded-full">
+                        Seen
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-zinc-300 leading-relaxed line-clamp-2">
+                    {movie.overview || "Overview pending TMDB lookup."}
+                  </p>
+                  <p className="text-xs text-zinc-500">Tap to toggle seen</p>
+                </div>
+              </div>
+            );
+
             return view === "grid" ? (
               <div
                 key={movie.rank}
                 onClick={() => toggleSeen(movie.rank)}
                 className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col cursor-pointer transition-colors hover:border-orange-400/50"
               >
-                {CardInner}
+                {CardGrid}
               </div>
             ) : (
               <div
                 key={movie.rank}
                 onClick={() => toggleSeen(movie.rank)}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] flex flex-col cursor-pointer transition-colors hover:border-orange-400/50"
+                className="rounded-xl border border-zinc-800 bg-zinc-900/80 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.35)] cursor-pointer transition-colors hover:border-orange-400/50"
               >
-                {CardInner}
+                {CardList}
               </div>
             );
           })}
