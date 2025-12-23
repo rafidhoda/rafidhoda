@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { reminders } from "@/data/reminders";
+import ReminderSquarePreview from "./ShareSquare";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -37,28 +38,30 @@ export default async function ReminderDetail({ params }: { params: Promise<{ slu
           </Link>
         </div>
 
-        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-10 space-y-5">
-          <div className="flex items-start justify-between gap-3">
-            <div className="text-xs uppercase tracking-[0.2em] text-orange-200">
-              Reminder to myself
+        <ReminderSquarePreview body={reminder.body}>
+          <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-10 space-y-5">
+            <div className="flex items-start justify-between gap-3">
+              <div className="text-xs uppercase tracking-[0.2em] text-orange-200">
+                Reminder to myself
+              </div>
+              <div className="text-sm uppercase tracking-[0.18em] text-zinc-500">
+                {reminder.date}
+              </div>
             </div>
-            <div className="text-sm uppercase tracking-[0.18em] text-zinc-500">
-              {reminder.date}
-            </div>
-          </div>
 
-          <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
-            {reminder.title}
-          </h1>
+            <h1 className="text-3xl sm:text-4xl font-semibold text-white tracking-tight">
+              {reminder.title}
+            </h1>
 
-          <div className="space-y-4">
-            <div className="space-y-3">
-              <div className="text-lg sm:text-xl text-zinc-100 leading-relaxed whitespace-pre-line">
-                {reminder.body}
+            <div className="space-y-4">
+              <div className="space-y-3">
+                <div className="text-lg sm:text-xl text-zinc-100 leading-relaxed whitespace-pre-line">
+                  {reminder.body}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ReminderSquarePreview>
 
         <div className="flex justify-between items-center pt-2">
           <div className="flex-1">
