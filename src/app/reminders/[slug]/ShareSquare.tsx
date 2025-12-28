@@ -1,15 +1,44 @@
 "use client";
 
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
   body: string;
+  slug: string;
   children: ReactNode;
 };
 
-export default function ReminderSquarePreview({ body, children }: Props) {
+export default function ReminderSquarePreview({ body, slug, children }: Props) {
+  const bodySizeClass = (() => {
+    const len = body.length;
+    if (len <= 120) return "text-3xl sm:text-4xl";
+    if (len <= 240) return "text-2xl sm:text-3xl";
+    return "text-xl sm:text-2xl";
+  })();
+
+  const paragraphs = body.trim().split(/\n\s*\n+/);
+
   const [showSquare, setShowSquare] = useState(false);
   const squareRef = useRef<HTMLDivElement | null>(null);
+
+  const downloadSquare = useCallback(async () => {
+    if (!squareRef.current) return;
+
+    try {
+      const { toPng } = await import("html-to-image");
+      const dataUrl = await toPng(squareRef.current, {
+        cacheBust: true,
+        pixelRatio: 2,
+      });
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      const cleanSlug = slug?.trim() || "reminder";
+      link.download = `${cleanSlug}.png`;
+      link.click();
+    } catch (error) {
+      console.error("Failed to capture reminder", error);
+    }
+  }, []);
 
   useEffect(() => {
     if (showSquare && squareRef.current) {
@@ -43,17 +72,26 @@ export default function ReminderSquarePreview({ body, children }: Props) {
       </div>
 
       {showSquare ? (
-        <div ref={squareRef} className="flex justify-center">
-          <div className="aspect-square w-full max-w-2xl rounded-[32px] border border-zinc-800 bg-zinc-950 shadow-2xl shadow-black/60 p-8 sm:p-12 flex flex-col gap-8">
-            <div className="text-sm sm:text-base uppercase tracking-[0.2em] text-orange-200">
+        <div
+          ref={squareRef}
+          className="flex justify-center cursor-pointer"
+          onClick={downloadSquare}
+          aria-label="Download square image"
+        >
+          <div className="aspect-square w-full max-w-2xl bg-zinc-950 shadow-2xl shadow-black/60 p-8 sm:p-12 flex flex-col gap-8">
+            <div className="text-base sm:text-lg uppercase tracking-[0.2em] text-orange-200">
               Reminder to myself
             </div>
             <div className="flex-1 flex items-center">
-              <p className="text-xl sm:text-2xl text-white leading-relaxed whitespace-pre-line">
-                {body}
-              </p>
+              <div className="w-full space-y-6">
+                {paragraphs.map((para, idx) => (
+                  <p key={idx} className={`${bodySizeClass} text-white leading-loose whitespace-pre-line`}>
+                    {para}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div className="text-right text-lg sm:text-xl text-zinc-300">- Rafid Hoda</div>
+            <div className="text-right text-xl sm:text-2xl text-zinc-300">- Rafid Hoda</div>
           </div>
         </div>
       ) : null}

@@ -370,7 +370,7 @@ export const reminders: Reminder[] = [
       "self-growth",
       "expectations"
     ],
-    "body": "You have to learn how to be okay with disappointing people.  \nIt’s impossible to live your life and please everyone at the same time."
+    "body": "You have to learn how to be okay with disappointing people.  \n\nIt’s impossible to live your life and please everyone at the same time."
   },
   {
     "id": 26,

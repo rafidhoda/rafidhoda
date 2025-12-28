@@ -38,7 +38,7 @@ export default async function ReminderDetail({ params }: { params: Promise<{ slu
           </Link>
         </div>
 
-        <ReminderSquarePreview body={reminder.body}>
+        <ReminderSquarePreview body={reminder.body} slug={reminder.slug}>
           <div className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-8 sm:p-10 space-y-5">
             <div className="flex items-start justify-between gap-3">
               <div className="text-xs uppercase tracking-[0.2em] text-orange-200">
