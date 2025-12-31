@@ -72,13 +72,12 @@ export default function ReminderSquarePreview({ body, slug, children }: Props) {
       </div>
 
       {showSquare ? (
-        <div
-          ref={squareRef}
-          className="flex justify-center cursor-pointer"
-          onClick={downloadSquare}
-          aria-label="Download square image"
-        >
-          <div className="aspect-square w-full max-w-2xl bg-zinc-950 shadow-2xl shadow-black/60 p-8 sm:p-12 flex flex-col gap-8">
+        <div className="flex justify-center cursor-pointer" aria-label="Download square image">
+          <div
+            ref={squareRef}
+            onClick={downloadSquare}
+            className="aspect-square w-full max-w-2xl bg-zinc-950 shadow-2xl shadow-black/60 p-8 sm:p-12 flex flex-col gap-8"
+          >
             <div className="text-base sm:text-lg uppercase tracking-[0.2em] text-orange-200">
               Reminder to myself
             </div>
